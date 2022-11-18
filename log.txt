@@ -1,6 +1,0 @@
-URL: http://localhost:8080/documentation
-Timestamp: Fri Nov 18 2022 10:55:57 GMT+0100 (Central European Standard Time)
-
-URL: http://localhost:8080/
-Timestamp: Fri Nov 18 2022 10:56:16 GMT+0100 (Central European Standard Time)
-

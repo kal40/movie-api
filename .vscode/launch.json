@@ -9,8 +9,7 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/index.js",
-      "runtimeExecutable": "~/.asdf/shims/node"
+      "program": "${workspaceFolder}/index.js"
     }
   ]
 }

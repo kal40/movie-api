@@ -25,15 +25,17 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.29.0",
+    "nodemon": "^2.0.20",
+    "prettier": "2.8.1"
   },
   "apidoc": {
     "name": "The movie API documentation",
     "version": "1.0.0",
     "description": "Documentation for the REST api access provided at myFlix",
     "title": "The movie API documentation",
-    "url": "https://myflixapi.smartcoder.dev",
-    "sampleUrl": "https://myflixapi.smartcoder.dev",
+    "url": "http://localhost:3000",
+    "sampleUrl": "http://localhost:3000",
     "template": {
       "withCompare": false,
       "withGenerator": false,
@@ -48,9 +50,8 @@
       "filename": "public/footer.md"
     },
     "order": [
-      "GetMovies",
-      "GetMovie",
-      "GetMovieGenre"
+      "Movie",
+      "User"
     ]
   }
 }

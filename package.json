@@ -4,7 +4,9 @@
   "description": "Server-side component of a “movies” web application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,38 @@
   },
   "homepage": "https://github.com/kal40/movie-api#readme",
   "dependencies": {
+    "body-parser": "^1.20.1",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "apidoc": {
+    "name": "The movie API documentation",
+    "version": "1.0.0",
+    "description": "Documentation for the REST api access provided at myFlix",
+    "title": "The movie API documentation",
+    "url": "https://myflixapi.smartcoder.dev",
+    "sampleUrl": "https://myflixapi.smartcoder.dev",
+    "template": {
+      "withCompare": false,
+      "withGenerator": false,
+      "showRequiredLabels": true
+    },
+    "header": {
+      "title": "Introduction",
+      "filename": "public/header.md"
+    },
+    "footer": {
+      "title": "Footer",
+      "filename": "public/footer.md"
+    },
+    "order": [
+      "GetMovies",
+      "GetMovie",
+      "GetMovieGenre"
+    ]
   }
 }

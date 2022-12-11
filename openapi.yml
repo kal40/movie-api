@@ -1,0 +1,56 @@
+openapi: "3.0.2"
+info:
+  version: "1.0"
+  title: myFlixDB API
+  description: Documentation for the REST api access provided at myFlix
+servers:
+  - url: http://localhost:3000
+paths:
+  /movies:
+    get:
+      tags:
+        - Movies
+      summary: Gets all movies.
+      operationId: getAllMovies
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+
+  /movies/{title}:
+    get:
+      tags:
+        - Movies
+      summary: Gets a movie by title.
+      operationId: getMovieByTitle
+      parameters:
+        - name: title
+          in: path
+          description: Movie title
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+components:
+  schemas:
+    Movie:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the movie
+        description:
+          type: string
+          description: The description of the movie
+      required:
+        - title
+        - description

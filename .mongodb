@@ -1,0 +1,293 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('myflix');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.movies.drop();
+
+db.movies.insertMany([
+  {
+    title: "Black Panther",
+    description:
+      "King T'Challa returns home to the reclusive, technologically advanced African nation of Wakanda to serve as his country's new leader. However, T'Challa soon finds that he is challenged for the throne by factions within his own country as well as without. Using powers reserved to Wakandan kings, T'Challa assumes the Black Panther mantle to join with ex-girlfriend Nakia, the queen-mother, his princess-kid sister, members of the Dora Milaje (the Wakandan 'special forces') and an American secret agent, to prevent Wakanda from being dragged into a world war.",
+    director: {
+      name: "Action",
+      description:
+        "Action film is a film director in which the protagonist is thrust into a series of events that typically involve violence and physical feats.",
+    },
+    director: {
+      name: "Ryan Coogler",
+      bio: "Ryan Kyle Coogler is an American film director, producer and screenwriter. He is a recipient of four NAACP Image Awards, four Black Reel Awards and an Academy Award nomination for Best Picture.",
+      birthYear: "1986",
+      deathYear: "",
+    },
+    imagePath: "https://www.themoviedb.org/t/p/w220_and_h330_face/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+    featured: true,
+  },
+
+  {
+    title: "Black Panther: Wakanda Forever",
+    description:
+      "Queen Ramonda, Shuri, M’Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T’Challa’s death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia and Everett Ross and forge a new path for the kingdom of Wakanda.",
+    director: {
+      name: "Action",
+      description:
+        "Action film is a film director in which the protagonist is thrust into a series of events that typically involve violence and physical feats.",
+    },
+    director: {
+      name: "Ryan Coogler",
+      bio: "Ryan Kyle Coogler is an American film director, producer and screenwriter. He is a recipient of four NAACP Image Awards, four Black Reel Awards and an Academy Award nomination for Best Picture.",
+      birthYear: "1986",
+      deathYear: "",
+    },
+    imagePath:
+      "https://artworks.thetvdb.com/banners/v4/movie/31110/backgrounds/636fafaf50adc.jpg",
+    featured: true,
+  },
+
+  {
+    title: "The Irishman",
+    description:
+      "Pennsylvania, 1956. Frank Sheeran, a war veteran of Irish origin who works as a truck driver, accidentally meets mobster Russell Bufalino. Once Frank becomes his trusted man, Bufalino sends him to Chicago with the task of helping Jimmy Hoffa, a powerful union leader related to organized crime, with whom Frank will maintain a close friendship for nearly twenty years.",
+    director: {
+      name: "Drama",
+      description:
+        "In film and television, drama is a category or director of narrative fiction intended to be more serious than humorous in tone.",
+    },
+    director: {
+      name: "Martin Scorsese",
+      bio: "Martin Charles Scorsese is an American film director, producer, screenwriter and actor. Scorsese emerged as one of the major figures of the New Hollywood era.",
+      birthYear: "1964",
+      deathYear: "",
+    },
+    imagePath: "https://www.themoviedb.org/t/p/w220_and_h330_face/mbm8k3GFhXS0ROd9AD1gqYbIFbM.jpg",
+    featured: true,
+  },
+
+  {
+    title: "The Wolf of Wall Street",
+    description:
+      "A New York stockbroker refuses to cooperate in a large securities fraud case involving corruption on Wall Street, corporate banking world and mob infiltration. Based on Jordan Belfort's autobiography.",
+    director: {
+      name: "Drama",
+      description:
+        "In film and television, drama is a category or director of narrative fiction intended to be more serious than humorous in tone.",
+    },
+    director: {
+      name: "Martin Scorsese",
+      bio: "Martin Charles Scorsese is an American film director, producer, screenwriter and actor. Scorsese emerged as one of the major figures of the New Hollywood era.",
+      birthYear: "1964",
+      deathYear: "",
+    },
+    imagePath: "https://www.themoviedb.org/t/p/w220_and_h330_face/34m2tygAYBGqA9MXKhRDtzYd4MR.jpg",
+    featured: true,
+  },
+
+  {
+    title: "The Wonder",
+    description:
+      "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
+   director: {
+      name: "Drama",
+      description:
+        "Haunted by her past, a nurse travels from England to a remote Irish village in 1862 to investigate a young girl's supposedly miraculous fast.",
+    },
+    director: {
+      name: "Sebastián Lelio",
+      bio: "Sebastián Lelio Watt is a Chilean director, screenwriter, editor and producer. He received critical acclaim for directing the films Gloria and A Fantastic Woman, the latter of which won an Academy Award for Best Foreign Language Film.",
+      birthYear: "1974",
+      deathYear: "",
+    },
+    imagePath: "https://artworks.thetvdb.com/banners/v4/movie/245161/posters/6355833b03dff.jpg",
+    featured: false,
+  },
+
+  {
+    title: "Stutz",
+    description:
+      "In candid conversations with actor Jonah Hill, leading psychiatrist Phil Stutz explores his early life experiences and unique, visual model of therapy.",
+    director: {
+      name: "Documentary",
+      description:
+        "A non-fiction motion picture intended to document reality primarily for the purposes of instruction, education, or maintaining a historical record. American film critic and filmmaker, Pare Lorentz, defines a documentary film as a factual film which is dramatic.",
+    },
+    director: {
+      name: "Jonah Hill",
+      bio: "Jonah Hill Feldstein is an American actor, comedian, and filmmaker. He is known for his comedic roles in films including Superbad, Knocked Up, 21 Jump Street, This Is the End, and 22 Jump Street.",
+      birthYear: "1983",
+      deathYear: "",
+    },
+    imagePath: "https://artworks.thetvdb.com/banners/v4/movie/341151/posters/6372afe725189.jpg",
+    featured: false,
+  },
+
+  {
+    title: "Disenchanted",
+    description:
+      "It has been 15 years since Giselle and Robert wed, but Giselle has grown disillusioned with life in the city, so they move their growing family to the sleepy suburban community of Monroeville in search of a more fairy tale life. Unfortunately, it isn’t the quick fix she had hoped for. Suburbia has a whole new set of rules and a local queen bee, Malvina Monroe, who makes Giselle feel more out of place than ever. Frustrated that her happily ever after hasn’t been so easy to find, she turns to the magic of Andalasia for help, accidentally transforming the entire town into a real-life fairy tale and placing her family’s future happiness in jeopardy. Now, Giselle is in a race against time to reverse the spell and determine what happily ever after truly means to her and her family.",
+    director: {
+      name: "Adventure",
+      description:
+        "Adventure fiction is a type of fiction that usually presents danger, or gives the reader a sense of excitement. Some adventure fiction also satisfies the literary definition of romance fiction.",
+    },
+    director: {
+      name: "Adam Shankman",
+      bio: "Adam Michael Shankman is an American film director, producer, writer, dancer, author, actor, and choreographer. He was a permanent judge on season 6–7 of the television program So You Think You Can Dance.",
+      birthYear: "1964",
+      deathYear: "",
+    },
+    imagePath: "https://artworks.thetvdb.com/banners/v4/movie/36635/posters/631ccb33d104f.jpg",
+    featured: true,
+  },
+
+  {
+    title: "Titanic",
+    description:
+      "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.",
+    director: {
+      name: "Drama",
+      description:
+        "Haunted by her past, a nurse travels from England to a remote Irish village in 1862 to investigate a young girl's supposedly miraculous fast.",
+    },
+    director: {
+      name: "James Cameron",
+      bio: "James Francis Cameron CC is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry''s most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
+      birthYear: "1954",
+      deathYear: "",
+    },
+    imagePath: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+    featured: false,
+  },
+
+  {
+    title: "The Terminator",
+    description:
+      "In the post-apocalyptic future, reigning tyrannical supercomputers teleport a cyborg assassin known as the 'Terminator' back to 1984 to kill Sarah Connor, whose unborn son is destined to lead insurgents against 21st century mechanical hegemony. Meanwhile, the human-resistance movement dispatches a lone warrior to safeguard Sarah. Can he stop the virtually indestructible killing machine?'",
+    director: {
+      name: "Action",
+      description:
+        "Action film is a film director in which the protagonist is thrust into a series of events that typically involve violence and physical feats.",
+    },
+     director: {
+      name: "James Cameron",
+      bio: "James Francis Cameron CC is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry''s most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
+      birthYear: "1954",
+      deathYear: "",
+    },
+    imagePath: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qvktm0BHcnmDpul4Hz01GIazWPr.jpg",
+    featured: false,
+  },
+
+  {
+    title: "Avatar",
+    description:
+      "In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.",
+     director: {
+      name: "Action",
+      description:
+        "Action film is a film director in which the protagonist is thrust into a series of events that typically involve violence and physical feats.",
+    },
+     director: {
+      name: "James Cameron",
+      bio: "James Francis Cameron CC is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry''s most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
+      birthYear: "1954",
+      deathYear: "",
+    },
+    imagePath: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg",
+    featured: true,
+  }
+]);
+
+use('myflix');
+db.users.drop();
+db.users.insertMany([
+  {
+    userName: "karcsika",
+    password: "1234",
+    email: "karcsika@net.hu",
+    birthDate: new Date("1985-02-19"),
+    favoriteMovies: [
+      ObjectId("639880bebbcdc7c34b68d8f6"),
+      ObjectId("639880bebbcdc7c34b68d8f7"),
+      ObjectId("639880bebbcdc7c34b68d8f8")
+    ]
+  },
+  {
+    userName: "mariska",
+    password: "98765",
+    email: "mariska@net.hu",
+    birthDate: new Date("2012-01-01"),
+    favoriteMovies: [
+      ObjectId("639880bebbcdc7c34b68d8f7"),
+      ObjectId("639880bebbcdc7c34b68d8f8"),
+      ObjectId("639880bebbcdc7c34b68d8f9")
+    ]
+  },
+  {
+    userName: "juliska",
+    password: "5678",
+    email: "bla@bla.bla",
+    birthDate: new Date("1994-01-01"),
+    favoriteMovies: [
+      ObjectId("639880bebbcdc7c34b68d8fc"),
+      ObjectId("639880bebbcdc7c34b68d8ff")
+    ]
+  },
+  {
+    userName: "jancsika",
+    password: "savsdsvd",
+    email: "jani@bori.dev",
+    birthDate: new Date("1954-01-01"),
+    favoriteMovies: [
+      ObjectId("639880bebbcdc7c34b68d8fe"),
+      ObjectId("639880bebbcdc7c34b68d8fd")
+    ]
+  },
+  {
+    userName: "otto",
+    password: "fghjbeed",
+    email: "otika@marha.org",
+    birthDate: new Date("1945-02-19"),
+    favoriteMovies: [
+      ObjectId("639880bebbcdc7c34b68d8fb"),
+      ObjectId("639880bebbcdc7c34b68d8f8"),
+      ObjectId("639880bebbcdc7c34b68d8f7")
+    ]
+  }
+]);
+
+db.movies.update(
+  { title: "Black Panther"},
+  { 
+    $set: {
+      description: "This is an awesome movie."
+  }}
+)
+
+db.movies.update(
+  { "director.name": "Ryan Coogler"},
+  { 
+    $set: {
+      "director.bio": "He is an awesome director."
+  }}
+)
+
+db.users.update(
+  { userName: "karcsika"},
+  { 
+    $push: {
+      favoriteMovies:  ObjectId("63971dc28874b12b9b97daa0")
+  }}
+)
+
+db.users.update(
+  { userName: "Lilly" },
+  { $push: { FavoriteMovies: ObjectId("63971dc28874b12b9b97daa0") } }
+)
+
+db.users.deleteOne({ userName: "juliska" })

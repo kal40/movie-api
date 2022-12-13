@@ -3,9 +3,34 @@ info:
   version: "1.0"
   title: myFlixDB API
   description: Documentation for the REST api access provided at myFlix
+  x-logo:
+    url: "https://raw.githubusercontent.com/vyomsrivastava/redoc-ly/main/logo.png"
+    backgroundColor: "#FFFFFF"
+    altText: "logo"
+
 servers:
   - url: http://localhost:3000
 paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create new user.
+      operationId: createUser
+      parameters:
+        - name: title
+          in: path
+          description: Movie title
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
   /movies:
     get:
       tags:
@@ -51,6 +76,42 @@ components:
         description:
           type: string
           description: The description of the movie
+        genre:
+          type: string
+          description: The genre of the movie
+        director:
+          type: string
+          description: The director of the movie
+        imageURL:
+          type: string
+          description: The image URL of the movie
+        featured:
+          type: boolean
+          description: Whether the movie is featured or not
       required:
         - title
         - description
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user
+        password:
+          type: string
+          description: The password of the user
+        email:
+          type: string
+          description: The email of the user
+        birthday:
+          type: string
+          description: The director of the movie
+        favoriteMovies:
+          type: array
+          items:
+            type: object
+          description: The image URL of the movie
+      required:
+        - username
+        - password
+        - email

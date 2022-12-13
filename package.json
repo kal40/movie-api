@@ -21,6 +21,7 @@
   "dependencies": {
     "body-parser": "^1.20.1",
     "express": "^4.18.2",
+    "mongoose": "^6.8.0",
     "morgan": "^1.10.0",
     "uuid": "^9.0.0"
   },
@@ -28,30 +29,5 @@
     "eslint": "^8.29.0",
     "nodemon": "^2.0.20",
     "prettier": "2.8.1"
-  },
-  "apidoc": {
-    "name": "The movie API documentation",
-    "version": "1.0.0",
-    "description": "Documentation for the REST api access provided at myFlix",
-    "title": "The movie API documentation",
-    "url": "http://localhost:3000",
-    "sampleUrl": "http://localhost:3000",
-    "template": {
-      "withCompare": false,
-      "withGenerator": false,
-      "showRequiredLabels": true
-    },
-    "header": {
-      "title": "Introduction",
-      "filename": "public/header.md"
-    },
-    "footer": {
-      "title": "Footer",
-      "filename": "public/footer.md"
-    },
-    "order": [
-      "Movie",
-      "User"
-    ]
   }
 }

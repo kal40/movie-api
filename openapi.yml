@@ -17,20 +17,39 @@ paths:
         - Users
       summary: Create new user.
       operationId: createUser
-      parameters:
-        - name: title
-          in: path
-          description: Movie title
-          required: true
-          schema:
-            type: string
+
+      requestBody:
+        description: The `user` object in json format.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+    get:
+      tags:
+        - Users
+      summary: Gets all users.
+      operationId: getAllUsers
       responses:
         "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+
   /movies:
     get:
       tags:
@@ -43,7 +62,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Movie"
+                $ref: "#/components/schemas/movie"
+        "5XX":
+          description: Unexpected error.
 
   /movies/{title}:
     get:
@@ -64,10 +85,207 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Movie"
+                $ref: "#/components/schemas/movie"
+        "5XX":
+          description: Unexpected error.
+
+  /movies/genres/{genreName}:
+    get:
+      tags:
+        - Movies
+      summary: Gets the genre by name.
+      operationId: getGenreByName
+      parameters:
+        - name: genreName
+          in: path
+          description: Genre name
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/genre"
+        "5XX":
+          description: Unexpected error.
+  /movies/directors/{directorName}:
+    get:
+      tags:
+        - Movies
+      summary: Gets the director by name.
+      operationId: getDirectorByName
+      parameters:
+        - name: directorName
+          in: path
+          description: Director name
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/director"
+        "5XX":
+          description: Unexpected error.
+
+  /users/{username}:
+    get:
+      tags:
+        - Users
+      summary: Gets a user by username.
+      operationId: getUserByUsername
+      parameters:
+        - name: username
+          in: path
+          description: User username
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+    put:
+      tags:
+        - Users
+      summary: Update user's details.
+      operationId: UpdateUser
+      parameters:
+        - name: username
+          in: path
+          description: User username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The `user` object in json format.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+    delete:
+      tags:
+        - Users
+      summary: Delete user.
+      operationId: DeleteUser
+      parameters:
+        - name: username
+          in: path
+          description: User username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The `user` object in json format.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+
+  /users/{username}/movies/{movieId}:
+    put:
+      tags:
+        - Users
+      summary: Add movie to user's favorite movies.
+      operationId: AddUserFavoriteMovie
+      parameters:
+        - name: username
+          in: path
+          description: User username
+          required: true
+          schema:
+            type: string
+        - name: movieId
+          in: path
+          description: Movie ID
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: The `user` object in json format.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+    delete:
+      tags:
+        - Users
+      summary: Delete movie from user's favorite movies.
+      operationId: DeleteUserFavoriteMovie
+      parameters:
+        - name: username
+          in: path
+          description: User username
+          required: true
+          schema:
+            type: string
+        - name: movieId
+          in: path
+          description: Movie ID
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: The `user` object in json format.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "5XX":
+          description: Unexpected error.
+
 components:
   schemas:
-    Movie:
+    movie:
       type: object
       properties:
         title:
@@ -91,7 +309,8 @@ components:
       required:
         - title
         - description
-    User:
+
+    user:
       type: object
       properties:
         username:
@@ -115,3 +334,29 @@ components:
         - username
         - password
         - email
+
+    genre:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the genre
+        description:
+          type: string
+          description: The description of the genre
+
+    director:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the director
+        bio:
+          type: string
+          description: The bio of the director
+        birthYear:
+          type: number
+          description: The birth year of the director
+        deathYear:
+          type: number
+          description: The death year of the director

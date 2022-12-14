@@ -9,7 +9,7 @@ info:
     altText: "logo"
 
 servers:
-  - url: http://localhost:3000
+  - url: https://myflixapi.smartcoder.dev/v1
 paths:
   /users:
     post:
@@ -324,7 +324,7 @@ components:
           description: The email of the user
         birthday:
           type: string
-          description: The director of the movie
+          description: The birthday of the user
         favoriteMovies:
           type: array
           items:

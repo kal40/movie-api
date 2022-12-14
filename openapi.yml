@@ -9,7 +9,7 @@ info:
     altText: "logo"
 
 servers:
-  - url: https://myflixapi.smartcoder.dev/v1
+  - url: https://myflix.smartcoder.dev/v1
 paths:
   /users:
     post:
@@ -32,7 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                $ref: "#/components/schemas/userWithId"
         "5XX":
           description: Unexpected error.
     get:
@@ -153,7 +153,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                $ref: "#/components/schemas/userWithId"
         "5XX":
           description: Unexpected error.
     put:
@@ -181,7 +181,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                $ref: "#/components/schemas/userWithId"
         "5XX":
           description: Unexpected error.
     delete:
@@ -245,7 +245,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                $ref: "#/components/schemas/userWithId"
         "5XX":
           description: Unexpected error.
     delete:
@@ -288,6 +288,9 @@ components:
     movie:
       type: object
       properties:
+        _id:
+          type: string
+          description: Automatically assigned ID of the movie
         title:
           type: string
           description: The title of the movie
@@ -295,17 +298,26 @@ components:
           type: string
           description: The description of the movie
         genre:
-          type: string
+          type: object
           description: The genre of the movie
+          $ref: "#/components/schemas/genre"
         director:
-          type: string
+          type: object
           description: The director of the movie
+          $ref: "#/components/schemas/director"
         imageURL:
           type: string
+          format: uri
           description: The image URL of the movie
         featured:
           type: boolean
           description: Whether the movie is featured or not
+        actors:
+          type: array
+          description: Actor's object IDs
+          items:
+            type: string
+            format: uuid
       required:
         - title
         - description
@@ -318,22 +330,34 @@ components:
           description: The username of the user
         password:
           type: string
+          format: password
           description: The password of the user
         email:
           type: string
+          format: date
           description: The email of the user
         birthday:
           type: string
           description: The birthday of the user
         favoriteMovies:
           type: array
+          description: Movie object IDs
           items:
-            type: number
-          description: Movie object ID
+            type: string
+            format: uuid
       required:
         - username
         - password
         - email
+    userWithId:
+      allOf:
+        - type: string
+          description: Automatically assigned user ID
+          properties:
+            _id:
+              type: string
+              format: uuid
+        - $ref: "#/components/schemas/director"
 
     genre:
       type: object

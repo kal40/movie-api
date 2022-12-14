@@ -52,7 +52,7 @@ app.post("/users", (req, res) => {
     .findOne({ username: req.body.username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.username + "already exists");
+        return res.status(400).send(req.body.username + " already exists");
       } else {
         users
           .create({
@@ -106,9 +106,9 @@ app.get("/movies/:title", (req, res) => {
 
 app.get("/movies/genres/:genreName", (req, res) => {
   movies
-    .find({ "genre.name": req.params.genreName })
+    .findOne({ "genre.name": req.params.genreName })
     .then((movie) => {
-      res.json(movie);
+      res.json(movie.genre);
     })
     .catch((err) => {
       console.error(err);
@@ -118,9 +118,9 @@ app.get("/movies/genres/:genreName", (req, res) => {
 
 app.get("/movies/directors/:directorName", (req, res) => {
   movies
-    .find({ "director.name": req.params.directorName })
+    .findOne({ "director.name": req.params.directorName })
     .then((movie) => {
-      res.json(movie);
+      res.json(movie.director);
     })
     .catch((err) => {
       console.error(err);
@@ -167,7 +167,8 @@ app.put("/users/:username", (req, res) => {
           email: req.body.email,
           birthday: req.body.birthday,
         },
-      }
+      },
+      { new: true }
     )
     .then((user) => {
       res.status(200).json(user);
@@ -184,7 +185,8 @@ app.post("/users/:username/movies/:movieId", (req, res) => {
       { username: req.params.username },
       {
         $push: { favoriteMovies: req.params.movieId },
-      }
+      },
+      { new: true }
     )
     .then((user) => {
       res.status(200).json(user);
@@ -205,7 +207,8 @@ app.delete("/users/:username/movies/:movieId", (req, res) => {
       { username: req.params.username },
       {
         $pull: { favoriteMovies: req.params.movieId },
-      }
+      },
+      { new: true }
     )
     .then((user) => {
       res.status(200).json(user);

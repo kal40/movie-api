@@ -1,7 +1,7 @@
 openapi: "3.0.2"
 info:
   version: "1.0"
-  title: myFlixDB API
+  title: myFlix API
   description: Documentation for the REST api access provided at myFlix
   x-logo:
     url: "https://raw.githubusercontent.com/vyomsrivastava/redoc-ly/main/logo.png"
@@ -328,8 +328,8 @@ components:
         favoriteMovies:
           type: array
           items:
-            type: object
-          description: The image URL of the movie
+            type: number
+          description: Movie object ID
       required:
         - username
         - password

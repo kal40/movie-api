@@ -291,6 +291,7 @@ components:
         _id:
           type: string
           description: Automatically assigned ID of the movie
+          example: 6399b9f402e2cbd3f76be70f
         title:
           type: string
           description: The title of the movie
@@ -317,7 +318,8 @@ components:
           description: Actor's object IDs
           items:
             type: string
-            format: uuid
+            format: id
+            example: 6399b9f402e2cbd3f76be70f
       required:
         - title
         - description
@@ -329,9 +331,11 @@ components:
           type: string
           format: username
           description: The username of the user
+          example: karcsika
         password:
           type: string
           description: The password of the user
+          example: élssjéljfáajfá74
         email:
           type: string
           format: email
@@ -346,6 +350,7 @@ components:
           items:
             type: string
             format: id
+            example: 6399b9f402e2cbd3f76be70f
       required:
         - username
         - password
@@ -359,6 +364,7 @@ components:
               type: string
               description: Automatically assigned user ID
               format: id
+              example: 6399b9f402e2cbd3f76be70f
         - $ref: "#/components/schemas/user"
 
     genre:

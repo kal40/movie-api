@@ -46,7 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                $ref: "#/components/schemas/userWithId"
         "5XX":
           description: Unexpected error.
 
@@ -327,37 +327,39 @@ components:
       properties:
         username:
           type: string
+          format: username
           description: The username of the user
         password:
           type: string
-          format: password
           description: The password of the user
         email:
           type: string
-          format: date
+          format: email
           description: The email of the user
         birthday:
           type: string
+          format: date
           description: The birthday of the user
         favoriteMovies:
           type: array
           description: Movie object IDs
           items:
             type: string
-            format: uuid
+            format: id
       required:
         - username
         - password
         - email
+
     userWithId:
       allOf:
-        - type: string
-          description: Automatically assigned user ID
+        - type: object
           properties:
             _id:
               type: string
-              format: uuid
-        - $ref: "#/components/schemas/director"
+              description: Automatically assigned user ID
+              format: id
+        - $ref: "#/components/schemas/user"
 
     genre:
       type: object
@@ -379,8 +381,10 @@ components:
           type: string
           description: The bio of the director
         birthYear:
-          type: number
+          type: string
+          format: date
           description: The birth year of the director
         deathYear:
           type: number
+          format: date
           description: The death year of the director

@@ -46,7 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userWithId"
+                $ref: "#/components/schemas/arrayOfUsers"
         "5XX":
           description: Unexpected error.
 
@@ -62,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/movie"
+                $ref: "#/components/schemas/arrayOfMovies"
         "5XX":
           description: Unexpected error.
 
@@ -196,20 +196,12 @@ paths:
           required: true
           schema:
             type: string
-      requestBody:
-        description: The `user` object in json format.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/user"
       responses:
         "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/user"
+          description: A user with the specified ID was deleted.
+        "404":
+          description: A user with the specified ID was not found.
+
         "5XX":
           description: Unexpected error.
 
@@ -232,13 +224,6 @@ paths:
           required: true
           schema:
             type: number
-      requestBody:
-        description: The `user` object in json format.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/user"
       responses:
         "200":
           description: Successful operation
@@ -324,6 +309,12 @@ components:
         - title
         - description
 
+    arrayOfMovies:
+      type: array
+      description: List of all movies
+      items:
+        $ref: "#/components/schemas/movie"
+
     user:
       type: object
       properties:
@@ -367,6 +358,12 @@ components:
               example: 6399b9f402e2cbd3f76be70f
         - $ref: "#/components/schemas/user"
 
+    arrayOfUsers:
+      type: array
+      description: List of all users
+      items:
+        $ref: "#/components/schemas/userWithId"
+
     genre:
       type: object
       properties:
@@ -391,6 +388,6 @@ components:
           format: date
           description: The birth year of the director
         deathYear:
-          type: number
+          type: string
           format: date
           description: The death year of the director

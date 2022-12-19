@@ -9,7 +9,7 @@ info:
     altText: "logo"
 
 servers:
-  - url: https://myflix.smartcoder.dev/v1
+  - url: https://myflixapi.smartcoder.dev/v1
 paths:
   /users:
     post:

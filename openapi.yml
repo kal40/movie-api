@@ -11,6 +11,40 @@ info:
 servers:
   - url: https://myflixapi.smartcoder.dev/v1
 paths:
+  /login:
+    post:
+      tags:
+        - Login
+      summary: Get bearer token as logging in with username and password.
+      description: >
+        Once the respose is received with the JWT it shall be used with each request (in the authorization header) as a bearer token in order to be authenticated for API calls.
+      operationId: getToken
+      parameters:
+        - in: query
+          name: username
+          schema:
+            type: string
+            format: username
+            example: johnny234
+          description: The user's username.
+        - in: query
+          name: password
+          schema:
+            type: string
+            format: password
+            example: skldohfgghegr2432
+          description: The user's password.
+
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userWithToken"
+        "5XX":
+          description: Unexpected error.
+
   /users:
     post:
       tags:
@@ -357,6 +391,17 @@ components:
               format: id
               example: 6399b9f402e2cbd3f76be70f
         - $ref: "#/components/schemas/user"
+
+    userWithToken:
+      allOf:
+        - $ref: "#/components/schemas/userWithId"
+        - type: object
+          properties:
+            token:
+              type: string
+              description: Automatically assigned JWT token
+              format: token
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2ExYjZiYTYzOTNkZTc3NWFmY2I5OGQiLCJ1c2VybmFtZSI6ImNzb2NzbyIsInBhc3N3b3JkIjoiJDJiJDEwJE05dXpleDlnMk1zemFnYWFoV01oS3ViYUJsZmtDRWN0dEFQUXlOcHNIWVRUWDVHVWp2UmFHIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiYmlydGhkYXkiOiIyMDIyLTEyLTE0VDAwOjAwOjAwLjAwMFoiLCJmYXZvcml0ZU1vdmllcyI6W10sIl9fdiI6MCwiaWF0IjoxNjcxNTQyNjgyLCJleHAiOjE2NzIxNDc0ODIsInN1YiI6ImNzb2NzbyJ9.wZiHnuEWHUMZT1lDg7gdBY_BjQHLJ9YeMFIS5pSv71E
 
     arrayOfUsers:
       type: array

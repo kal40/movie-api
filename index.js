@@ -327,7 +327,7 @@ app.get("/", (req, res) => {
   res
     .status(200)
     .send(
-      `Welcome at myFlix API!\n\nSee the documentation under https://${HOST}:${PORT}/documentation.`
+      `Welcome at myFlix API!\n\nSee the documentation under https:///myflixapi.smartcoder.dev/documentation.`
     );
 });
 

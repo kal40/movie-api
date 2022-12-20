@@ -325,6 +325,14 @@ app.delete(
 // ====================================
 
 app.get("/documentation", (req, res) => {
+  res
+    .status(200)
+    .send(
+      `Welcome at myFlix API!\n\nSee the ducumentation under /documentation.`
+    );
+});
+
+app.get("/documentation", (req, res) => {
   res.status(200).sendFile("public/index.html", { root: __dirname });
 });
 

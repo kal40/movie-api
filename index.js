@@ -15,7 +15,7 @@ const users = models.user;
 // ====================================
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || "0.0.0.0";
+const HOST = process.env.HOST || localhost";
 
 // ====================================
 // === App
@@ -340,6 +340,6 @@ app.get("/documentation", (req, res) => {
 // === Server
 // ====================================
 
-app.listen(PORT, HOST, () => {
+app.listen(PORT, () => {
   console.log(`Running on https://${HOST}:${PORT}`);
 });

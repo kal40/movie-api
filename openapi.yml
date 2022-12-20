@@ -25,14 +25,14 @@ paths:
           schema:
             type: string
             format: username
-            example: johnny234
+            example: karcsika
           description: The user's username.
         - in: query
           name: password
           schema:
             type: string
             format: password
-            example: skldohfgghegr2432
+            example: élssjéljfáajfá74
           description: The user's password.
 
       responses:

@@ -70,3 +70,5 @@
 127.0.0.1 - - [20/Dec/2022:13:24:36 +0000] "GET /movies HTTP/1.1" 401 - "-" "PostmanRuntime/7.30.0"
 127.0.0.1 - - [20/Dec/2022:13:25:02 +0000] "GET /movies HTTP/1.1" 401 - "-" "PostmanRuntime/7.30.0"
 127.0.0.1 - - [20/Dec/2022:13:25:20 +0000] "GET /movies HTTP/1.1" 201 10358 "-" "PostmanRuntime/7.30.0"
+127.0.0.1 - - [20/Dec/2022:14:15:41 +0000] "GET / HTTP/1.1" 200 87 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54"
+127.0.0.1 - - [20/Dec/2022:14:16:01 +0000] "GET /documentation HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54"

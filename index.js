@@ -15,7 +15,7 @@ const users = models.user;
 // ====================================
 
 const PORT = process.env.PORT || 3000;
-const HOST = "0.0.0.0";
+const HOST = process.env.HOST || "0.0.0.0";
 
 // ====================================
 // === App
@@ -74,7 +74,7 @@ app.post(
       return res.status(422).json({ errors: errors.array() });
     }
 
-    let hashedPassword = users.hashedPassword(req.body.password);
+    let hashedPassword = users.hashPassword(req.body.password);
     users
       .findOne({ username: req.body.username })
       .then((user) => {
@@ -324,16 +324,16 @@ app.delete(
 // === Static
 // ====================================
 
-app.get("/documentation", (req, res) => {
+app.get("/", (req, res) => {
   res
     .status(200)
     .send(
-      `Welcome at myFlix API!\n\nSee the ducumentation under /documentation.`
+      `Welcome at myFlix API!\n\nSee the documentation under https://${HOST}:${PORT}/documentation.`
     );
 });
 
 app.get("/documentation", (req, res) => {
-  res.status(200).sendFile("public/index.html", { root: __dirname });
+  res.status(200).sendFile("/public/documentation.html", { root: __dirname });
 });
 
 // ====================================
@@ -341,5 +341,5 @@ app.get("/documentation", (req, res) => {
 // ====================================
 
 app.listen(PORT, HOST, () => {
-  console.log(`Running on http://${HOST}:${PORT}`);
+  console.log(`Running on https://${HOST}:${PORT}`);
 });

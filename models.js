@@ -3,10 +3,14 @@ const mongoose = require("mongoose"),
 
 mongoose.set("strictQuery", true);
 
-mongoose.connect("mongodb://localhost:27017/myflix", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  //"mongodb://localhost:27017/myflix",
+  process.env.CONNECTION_URI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 let moviSchema = mongoose.Schema({
   title: { type: String, required: true },

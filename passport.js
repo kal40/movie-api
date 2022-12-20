@@ -14,7 +14,6 @@ passport.use(
       passwordField: "password",
     },
     (username, password, callback) => {
-      console.log(`${username} ${password}`);
       users.findOne({ username: username }, (error, user) => {
         if (error) {
           console.log(error);
@@ -33,7 +32,6 @@ passport.use(
           return callback(null, false, { message: "Incorrect password." });
         }
 
-        console.log("finished");
         return callback(null, user);
       });
     }
@@ -44,7 +42,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: "your_jwt_secret",
+      secretOrKey: "$VP4K^XSQS3Q5@e2ZP##89749LUGDkMc",
     },
     (jwtPayload, callback) => {
       return users

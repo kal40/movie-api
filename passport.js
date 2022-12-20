@@ -14,7 +14,7 @@ passport.use(
       passwordField: "password",
     },
     (username, password, callback) => {
-      console.log(username + "  " + password);
+      console.log(`${username} ${password}`);
       users.findOne({ username: username }, (error, user) => {
         if (error) {
           console.log(error);
@@ -26,6 +26,11 @@ passport.use(
           return callback(null, false, {
             message: "Incorrect username or password.",
           });
+        }
+
+        if (!user.validatePassword(password)) {
+          console.error("Incorrect password.");
+          return callback(null, false, { message: "Incorrect password." });
         }
 
         console.log("finished");

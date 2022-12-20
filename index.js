@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
+const { check, validationResult } = require("express-validator");
 const fs = require("fs");
 const path = require("path");
 
@@ -13,7 +14,7 @@ const users = models.user;
 // === Const
 // ====================================
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const HOST = "0.0.0.0";
 
 // ====================================
@@ -34,9 +35,11 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const cors = require("cors");
+app.use(cors());
+
 let auth = require("./auth")(app);
 const passport = require("passport");
-require("./passport");
 
 app.use(morgan("combined", { stream: accessLogStream }));
 
@@ -51,34 +54,55 @@ app.use((err, req, res, next) => {
 // === CREATE
 // ====================================
 
-app.post("/users", (req, res) => {
-  users
-    .findOne({ username: req.body.username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.username + " already exists");
-      } else {
-        users
-          .create({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            birthday: req.body.birthday,
-          })
-          .then((user) => {
-            res.status(201).json(user);
-          })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error: " + error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+app.post(
+  "/users",
+  [
+    check("username", "Username shall be at least 5 characters long.").isLength(
+      { min: 5 }
+    ),
+    check(
+      "username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("password", "Password is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail(),
+  ],
+  (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = users.hashedPassword(req.body.password);
+    users
+      .findOne({ username: req.body.username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.username + " already exists");
+        } else {
+          users
+            .create({
+              username: req.body.username,
+              password: hashedPassword,
+              email: req.body.email,
+              birthday: req.body.birthday,
+            })
+            .then((user) => {
+              res.status(201).json(user);
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error: " + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 // ====================================
 // === READ
@@ -187,7 +211,24 @@ app.get(
 app.put(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
+  [
+    check("username", "Username shall be at least 5 characters long.").isLength(
+      { min: 5 }
+    ),
+    check(
+      "username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("password", "Password is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail(),
+  ],
   (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     users
       .findOneAndUpdate(
         { username: req.params.username },
@@ -291,5 +332,6 @@ app.get("/documentation", (req, res) => {
 // === Server
 // ====================================
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Running on http://${HOST}:${PORT}`);
+});

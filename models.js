@@ -1,4 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"),
+  bcrypt = require("bcrypt");
+
 mongoose.set("strictQuery", true);
 
 mongoose.connect("mongodb://localhost:27017/myflix", {
@@ -29,6 +31,14 @@ let userSchema = mongoose.Schema({
   birthday: Date,
   favoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "movie" }],
 });
+
+userSchema.statics.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);
+};
+
+userSchema.methods.validatePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 let movie = mongoose.model("movie", moviSchema);
 let user = mongoose.model("user", userSchema);

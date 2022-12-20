@@ -15,7 +15,6 @@ const users = models.user;
 // ====================================
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || localhost";
 
 // ====================================
 // === App
@@ -341,5 +340,5 @@ app.get("/documentation", (req, res) => {
 // ====================================
 
 app.listen(PORT, () => {
-  console.log(`Running on https://${HOST}:${PORT}`);
+  console.log(`Running on https://myflixapi.smartcoder.dev`);
 });

@@ -324,11 +324,10 @@ app.delete(
 // ====================================
 
 app.get("/", (req, res) => {
-  res
-    .status(200)
-    .send(
-      `Welcome at myFlix API!\n\nSee the documentation under https:///myflixapi.smartcoder.dev/documentation.`
-    );
+  res.status(200).send(
+    `<h1>Welcome at myFlix API!</h1>
+      <p>Check out <a href="https:///myflixapi.smartcoder.dev/documentation">here</a> the documentation.</p>`
+  );
 });
 
 app.get("/documentation", (req, res) => {

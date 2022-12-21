@@ -53,7 +53,7 @@ paths:
         - Users
       summary: Create new user.
       operationId: createUser
-
+      security: []
       requestBody:
         description: The `user` object in json format.
         required: true

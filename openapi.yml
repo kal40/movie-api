@@ -15,6 +15,8 @@ paths:
     post:
       tags:
         - Login
+      security:
+        - basicAuth: []
       summary: Get bearer token as logging in with username and password.
       description: >
         Once the respose is received with the JWT it shall be used with each request (in the authorization header) as a bearer token in order to be authenticated for API calls.
@@ -67,6 +69,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userWithId"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
     get:
@@ -81,6 +85,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/arrayOfUsers"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
 
@@ -97,6 +103,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/arrayOfMovies"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
 
@@ -120,6 +128,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/movie"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
 
@@ -143,6 +153,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/genre"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
   /movies/directors/{directorName}:
@@ -165,6 +177,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/director"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
 
@@ -188,6 +202,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userWithId"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
     put:
@@ -216,6 +232,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userWithId"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
     delete:
@@ -233,9 +251,10 @@ paths:
       responses:
         "200":
           description: A user with the specified ID was deleted.
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "404":
           description: A user with the specified ID was not found.
-
         "5XX":
           description: Unexpected error.
 
@@ -265,6 +284,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userWithId"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
     delete:
@@ -299,6 +320,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/user"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
 
@@ -442,6 +465,18 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT # optional, arbitrary value for documentation purposes
+
+    basicAuth: # <-- arbitrary name for the security scheme
+      type: http
+      scheme: basic
+
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
 
 security:
   - bearerAuth: []

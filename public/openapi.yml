@@ -69,8 +69,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userWithId"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
         "5XX":
           description: Unexpected error.
     get:

@@ -14,18 +14,39 @@ This site was built using [Heroku GitHub Deploys](https://devcenter.heroku.com/a
 
 ## Getting started
 
-### Deployment
+### Prerequisites
 
 Install nodejs LTS or the latest version.
 
-Clone the repository and run with npm:
+Setup a mongodb database.
+
+### Installation
+
+Clone the repository:
 
 ```shell
 git clone https://github.com/kal40/movie-api.git
 cd movie-api
-npm install
-npm run
 ```
+
+Create a file and name it `.env.development.local` for environment variables and add the next content:
+
+```shell
+CONNECTION_URI="your mongo DB connection string"
+PORT=your port number
+HOST="your host name with the used http protocol together"
+```
+
+then run the next commands:
+
+```shell
+npm install
+npm run dev
+```
+
+### Testing
+
+The endpoints can be tested directly from the [documentation](https://myflixapi.smartcoder.dev/documentation) or the openapi definitions can be imported to Postman from [this link](https://myflixapi.smartcoder.dev/openapi)
 
 ## Key Features
 

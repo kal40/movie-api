@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const uuid = require("uuid");
 const { check, validationResult } = require("express-validator");
 const fs = require("fs");
 const path = require("path");
@@ -9,12 +8,6 @@ const path = require("path");
 const models = require("./models");
 const movies = models.movie;
 const users = models.user;
-
-// ====================================
-// === Const
-// ====================================
-
-const PORT = process.env.PORT || 3000;
 
 // ====================================
 // === App
@@ -334,10 +327,18 @@ app.get("/documentation", (req, res) => {
   res.status(200).sendFile("/public/documentation.html", { root: __dirname });
 });
 
+app.get("/documentation", (req, res) => {
+  res.status(200).sendFile("/public/documentation.html", { root: __dirname });
+});
+
+app.get("/openapi", (req, res) => {
+  res.status(200).sendFile("/public/openapi.yml", { root: __dirname });
+});
+
 // ====================================
 // === Server
 // ====================================
 
-app.listen(PORT, () => {
-  console.log(`Running on https://myflixapi.smartcoder.dev`);
+app.listen(process.env.PORT, () => {
+  console.log(`Running on ${process.env.HOST}:${process.env.PORT}`);
 });

@@ -9,10 +9,6 @@ const models = require("./models");
 const movies = models.movie;
 const users = models.user;
 
-// ====================================
-// === App
-// ====================================
-
 const app = express();
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {

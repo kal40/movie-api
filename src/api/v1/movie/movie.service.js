@@ -8,9 +8,7 @@ const getAllMovies = async () => {
   return finalResult;
 };
 
-const getMovieByTitle = async (inputData) => {
-  const { title } = inputData;
-
+const getMovieByTitle = async ({ title }) => {
   const foundMovie = await Movie.findOne({ title: title });
 
   const finalResult = foundMovie;
@@ -18,9 +16,7 @@ const getMovieByTitle = async (inputData) => {
   return finalResult;
 };
 
-const getGenreByName = async (inputData) => {
-  const { genreName } = inputData;
-
+const getGenreByName = async ({ genreName }) => {
   const foundMovie = await Movie.findOne({
     "genre.name": genreName,
   });
@@ -30,9 +26,7 @@ const getGenreByName = async (inputData) => {
   return finalResult;
 };
 
-const getDirectorByName = async (inputData) => {
-  const { directorName } = inputData;
-
+const getDirectorByName = async ({ directorName }) => {
   const foundMovie = await Movie.findOne({
     "director.name": directorName,
   });

@@ -12,8 +12,7 @@ const checkUserExist = async (username) => {
   return user;
 };
 
-const createUser = async (inputData) => {
-  const { username, password, email, birthday } = inputData;
+const createUser = async ({ username, password, email, birthday }) => {
   let hashedPassword = await generatePasswordHashFn(password);
   const createdUser = await User.create({
     username: username,
@@ -24,8 +23,7 @@ const createUser = async (inputData) => {
   return createdUser;
 };
 
-const loginUser = async (inputData) => {
-  const { username, password } = inputData;
+const loginUser = async ({ username, password }) => {
   const user = await User.findOne({ username: username });
   await passwordMatchesFn(password, user.password);
   const accessToken = generateJWTToken(user);
@@ -45,9 +43,7 @@ const getAllUsers = async () => {
   return finalResult;
 };
 
-const getUserByUsername = async (inputData) => {
-  const { username } = inputData;
-
+const getUserByUsername = async ({ username }) => {
   const foundUser = await User.findOne({ username: username });
 
   const finalResult = foundUser;
@@ -55,9 +51,10 @@ const getUserByUsername = async (inputData) => {
   return finalResult;
 };
 
-const updateUserDetails = async (inputData, currentUsername) => {
-  const { username, password, email, birthday } = inputData;
-
+const updateUserDetails = async (
+  { username, password, email, birthday },
+  currentUsername
+) => {
   const updatedUser = await User.findOneAndUpdate(
     { username: currentUsername },
     {
@@ -75,9 +72,7 @@ const updateUserDetails = async (inputData, currentUsername) => {
   return finalResult;
 };
 
-const deleteUser = async (inputData) => {
-  const { username } = inputData;
-
+const deleteUser = async ({ username }) => {
   const deletedUser = await User.findOneAndRemove({ username: username });
 
   const finalResult = deletedUser;
@@ -85,9 +80,7 @@ const deleteUser = async (inputData) => {
   return finalResult;
 };
 
-const addUserFavoriteMovie = async (inputData) => {
-  const { username, movieId } = inputData;
-
+const addUserFavoriteMovie = async ({ username, movieId }) => {
   const updatedUser = await User.findOneAndUpdate(
     { username: username },
     {
@@ -100,9 +93,7 @@ const addUserFavoriteMovie = async (inputData) => {
   return finalResult;
 };
 
-const deleteUserFavoriteMovie = async (inputData) => {
-  const { username, movieId } = inputData;
-
+const deleteUserFavoriteMovie = async ({ username, movieId }) => {
   const updatedUser = await User.findOneAndUpdate(
     { username: username },
     {

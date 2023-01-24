@@ -22,11 +22,17 @@ const getMovieByTitle = async (req, res) => {
   const inputData = req.params;
   try {
     const response = await MovieService.getMovieByTitle(inputData);
-    res.status(httpStatus.OK).json({
-      success: true,
-      message: "Movie fetched successfully",
-      data: response,
-    });
+    if (!response) {
+      res
+        .status(httpStatus.UNAUTHORIZED)
+        .json({ success: true, message: "No movie with that title" });
+    } else {
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "Movie fetched successfully",
+        data: response,
+      });
+    }
   } catch (error) {
     res.status(httpStatus.UNAUTHORIZED).json({
       success: false,
@@ -40,11 +46,17 @@ const getGenreByName = async (req, res) => {
 
   try {
     const response = await MovieService.getGenreByName(inputData);
-    res.status(httpStatus.OK).json({
-      success: true,
-      message: "Genre fetched successfully",
-      data: response,
-    });
+    if (!response) {
+      res
+        .status(httpStatus.UNAUTHORIZED)
+        .json({ success: true, message: "No genre with that name" });
+    } else {
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "Genre fetched successfully",
+        data: response,
+      });
+    }
   } catch (error) {
     res.status(httpStatus.UNAUTHORIZED).json({
       success: false,
@@ -58,11 +70,17 @@ const getDirectorByName = async (req, res) => {
 
   try {
     const response = await MovieService.getDirectorByName(inputData);
-    res.status(httpStatus.OK).json({
-      success: true,
-      message: "Director fetched successfully",
-      data: response,
-    });
+    if (!response) {
+      res
+        .status(httpStatus.UNAUTHORIZED)
+        .json({ success: true, message: "No director with that name" });
+    } else {
+      res.status(httpStatus.OK).json({
+        success: true,
+        message: "Director fetched successfully",
+        data: response,
+      });
+    }
   } catch (error) {
     res.status(httpStatus.UNAUTHORIZED).json({
       success: false,

@@ -47,7 +47,7 @@ npm run dev
 
 ### Testing
 
-The endpoints can be tested directly from the [documentation](https://myflixapi.smartcoder.dev/documentation) or the openapi definitions can be imported to Postman from [this link](https://myflixapi.smartcoder.dev/openapi)
+The endpoints can be tested directly from the [documentation](https://myflixapi.smartcoder.dev) or the openapi definitions can be imported to Postman from [this link](https://myflixapi.smartcoder.dev/openapi.yml)
 
 ## Key Features
 

@@ -2,11 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import cors from "cors";
 
-const ALLOWED_ORIGINS = [
-  "http://localhost:3000",
-  "http://localhost:1234",
-  "https://kheq6l.csb.app",
-];
+const ALLOWED_ORIGINS = ["http://localhost:3000", "https://kheq6l.csb.app"];
 
 export const initCors = (app) => {
   app.use(

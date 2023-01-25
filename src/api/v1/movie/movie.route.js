@@ -6,7 +6,7 @@ import { authorizeJWT } from "../../../auth/auth.js";
 
 const movieRouter = Router();
 
-movieRouter.route("/").get(MovieController.getAllMovies);
+movieRouter.route("/").get(authorizeJWT, MovieController.getAllMovies);
 
 movieRouter.route("/:title").get(authorizeJWT, MovieController.getMovieByTitle);
 

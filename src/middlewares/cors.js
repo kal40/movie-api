@@ -5,7 +5,7 @@ import cors from "cors";
 const ALLOWED_ORIGINS = [
   "http://localhost:3000",
   "http://localhost:1234",
-  "https://codesandbox.io/",
+  "https://kheq6l.csb.app",
 ];
 
 export const initCors = (app) => {

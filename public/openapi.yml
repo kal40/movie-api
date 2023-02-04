@@ -257,7 +257,7 @@ paths:
           description: Unexpected error.
 
   /users/{username}/movies/{movieId}:
-    put:
+    post:
       tags:
         - Users
       summary: Add movie to user's favorite movies.

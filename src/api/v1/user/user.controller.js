@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const inputData = req.query;
+  const inputData = req.body;
   try {
     const user = await UserService.checkUserExist(inputData.username);
     if (!user) {

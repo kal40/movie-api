@@ -21,21 +21,26 @@ paths:
       description: >
         Once the respose is received with the JWT it shall be used with each request (in the authorization header) as a bearer token in order to be authenticated for API calls.
       operationId: getToken
-      parameters:
-        - in: query
-          name: username
-          schema:
-            type: string
-            format: username
-            example: karcsika
-          description: The user's username.
-        - in: query
-          name: password
-          schema:
-            type: string
-            format: password
-            example: élssjéljfáajfá74
-          description: The user's password.
+      requestBody:
+        description: The user's username and password inside an object in json format.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  format: username
+                  description: The username of the user
+                  example: karcsika
+                password:
+                  type: string
+                  description: The password of the user
+                  example: élssjéljfáajfá74
+              required:
+                - username
+                - password
 
       responses:
         "200":
@@ -43,9 +48,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userWithToken"
-        "5XX":
-          description: Unexpected error.
+                $ref: "#/components/schemas/common"
+                data:
+                  type: object
+                  properties:
+                    type: string
+                    description: The JWT token of the user
+
+        "401":
+          description: UNAUTHORIZED
 
   /users:
     post:
@@ -325,6 +336,16 @@ paths:
 
 components:
   schemas:
+    common:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicating whether the communication was successful with the server.
+        message:
+          type: string
+          description: Informational message from the server.
+
     movie:
       type: object
       properties:

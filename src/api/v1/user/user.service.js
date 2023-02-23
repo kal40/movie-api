@@ -28,8 +28,6 @@ const loginUser = async ({ username, password }) => {
   await passwordMatchesFn(password, user.password);
   const accessToken = generateJWTToken(user);
   const response = {
-    _id: user.id,
-    email: user.email,
     token: accessToken,
   };
   return response;

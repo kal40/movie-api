@@ -48,12 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/common"
-                data:
-                  type: object
-                  properties:
-                    type: string
-                    description: The JWT token of the user
+                $ref: "#/components/schemas/login"
 
         "401":
           description: UNAUTHORIZED
@@ -336,15 +331,23 @@ paths:
 
 components:
   schemas:
-    common:
+    login:
       type: object
       properties:
         success:
           type: boolean
           description: Indicating whether the communication was successful with the server.
+          example: true
         message:
           type: string
           description: Informational message from the server.
+          example: "User logged in successsfuly"
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              description: The JWT token of the user
 
     movie:
       type: object

@@ -37,7 +37,7 @@ const loginUser = async (req, res) => {
       const newUserAccessToken = await UserService.loginUser(inputData);
       res.status(httpStatus.OK).json({
         success: true,
-        message: "User login successsfuly",
+        message: "User logged in successsfully",
         data: newUserAccessToken,
       });
     }

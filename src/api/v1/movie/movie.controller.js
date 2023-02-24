@@ -54,7 +54,7 @@ const getGenreByName = async (req, res) => {
       res.status(httpStatus.OK).json({
         success: true,
         message: "Genre fetched successfully",
-        data: response,
+        data: response.genre,
       });
     }
   } catch (error) {
@@ -78,7 +78,7 @@ const getDirectorByName = async (req, res) => {
       res.status(httpStatus.OK).json({
         success: true,
         message: "Director fetched successfully",
-        data: response,
+        data: response.director,
       });
     }
   } catch (error) {

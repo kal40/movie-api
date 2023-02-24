@@ -1,504 +1,1753 @@
-openapi: "3.0.2"
+openapi: 3.0.0
 info:
-  version: "1.0"
-  title: myFlix API
+  title: myFlix
   description: Documentation for the REST api access provided at myFlix
-  x-logo:
-    url: "https://raw.githubusercontent.com/vyomsrivastava/redoc-ly/main/logo.png"
-    backgroundColor: "#FFFFFF"
-    altText: "logo"
-
+  version: 1.0.0
 servers:
   - url: https://myflixapi.smartcoder.dev/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+security:
+  - bearerAuth: []
+tags:
+  - name: users
+  - name: users > {username}
+  - name: users > {username} > movies/{movieId}
+  - name: movies
+  - name: login
 paths:
-  /login:
+  /users/{username}/movies/{movieId}:
     post:
       tags:
-        - Login
-      security:
-        - basicAuth: []
-      summary: Get bearer token as logging in with username and password.
-      description: >
-        Once the respose is received with the JWT it shall be used with each request (in the authorization header) as a bearer token in order to be authenticated for API calls.
-      operationId: getToken
+        - users > {username} > movies/{movieId}
+      summary: Add movie to user's favorite movies.
       requestBody:
-        description: The user's username and password inside an object in json format.
-        required: true
+        content: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: username
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) User username
+          example: test1234
+        - name: movieId
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) Movie ID
+          example: 6399b9f402e2cbd3f76be717
+      responses:
+        "200":
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "330"
+            Etag:
+              schema:
+                type: string
+                example: W/"14a-nwVhjomVQfEsraZN45+HKJz0eh8"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:03:24 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Movie added to user's favorites successfully
+                data:
+                  _id: 63f876c99eee68249175f588
+                  username: test1234
+                  password: $2b$10$xbJfO3JqCvq9rizfbmUxJ.rIsPlwaFxW5n6xg9bjpSd4HIDx3tehy
+                  email: user@example.com
+                  birthday: "2023-02-24T00:00:00.000Z"
+                  favoriteMovies:
+                    - 6399b9f402e2cbd3f76be717
+                  __v: 0
+        "401":
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
+    delete:
+      tags:
+        - users > {username} > movies/{movieId}
+      summary: Delete movie from user's favorite movies.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: username
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) User username
+          example: test1234
+        - name: movieId
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) Movie ID
+          example: 6399b9f402e2cbd3f76be717
+      responses:
+        "200":
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "308"
+            Etag:
+              schema:
+                type: string
+                example: W/"134-2NLWDKJ8ypcRf/KTAXL8LQUY3nk"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:04:42 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Movie deleted from user's favorites successfully
+                data:
+                  _id: 63f876c99eee68249175f588
+                  username: test1234
+                  password: $2b$10$xbJfO3JqCvq9rizfbmUxJ.rIsPlwaFxW5n6xg9bjpSd4HIDx3tehy
+                  email: user@example.com
+                  birthday: "2023-02-24T00:00:00.000Z"
+                  favoriteMovies: []
+                  __v: 0
+        "401":
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
+  /users/{username}:
+    get:
+      tags:
+        - users > {username}
+      summary: Gets a user by username.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: username
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) User username
+          example: test1234
+      responses:
+        "200":
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "285"
+            Etag:
+              schema:
+                type: string
+                example: W/"11d-0BhJJO9L20JTdhKKqVZBVw2Qe0k"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:05:25 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: User fetched successfully
+                data:
+                  _id: 63f876c99eee68249175f588
+                  username: test1234
+                  password: $2b$10$xbJfO3JqCvq9rizfbmUxJ.rIsPlwaFxW5n6xg9bjpSd4HIDx3tehy
+                  email: user@example.com
+                  birthday: "2023-02-24T00:00:00.000Z"
+                  favoriteMovies: []
+                  __v: 0
+        "401":
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
+    put:
+      tags:
+        - users > {username}
+      summary: Update user's details.
+      requestBody:
         content:
           application/json:
             schema:
               type: object
-              properties:
-                username:
-                  type: string
-                  format: username
-                  description: The username of the user
-                  example: karcsika
-                password:
-                  type: string
-                  description: The password of the user
-                  example: élssjéljfáajfá74
-              required:
-                - username
-                - password
-
+              example:
+                username: test1234
+                password: topSERCRET123
+                email: new-user-email@example.com
+                birthday: "2023-02-24"
+                favoriteMovies:
+                  - 6399b9f402e2cbd3f76be70f
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: username
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) User username
+          example: test1234
       responses:
         "200":
-          description: Successful operation
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "248"
+            Etag:
+              schema:
+                type: string
+                example: W/"f8-Nnh5/OCsC2m8ANlZpE7dLhXb/o4"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:06:58 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/login"
-
+                type: object
+              example:
+                success: true
+                message: User updated successfully
+                data:
+                  _id: 63f876c99eee68249175f588
+                  username: test1234
+                  password: topSERCRET123
+                  email: new-user-email@example.com
+                  birthday: "2023-02-24T00:00:00.000Z"
+                  favoriteMovies: []
+                  __v: 0
+        "400":
+          description: Bad Request
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "90"
+            Etag:
+              schema:
+                type: string
+                example: W/"5a-jQDgSIfLDCv7E1je5YcIewtQUQU"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:16:02 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                  - msg: Email does not appear to be valid
+                    param: email
+                    location: body
         "401":
-          description: UNAUTHORIZED
-
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
+    delete:
+      tags:
+        - users > {username}
+      summary: Delete user.
+      parameters:
+        - name: username
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) User username
+          example: aute do
+      responses:
+        "401":
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
   /users:
+    get:
+      tags:
+        - users
+      summary: Gets all users.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "5488"
+            ETag:
+              schema:
+                type: string
+                example: W/"1570-FFqRP5l64P9ddcFMsZz5kNDGenU"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:40:27 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: All users fetched successfully
+                data:
+                  - _id: 63df4d47d355d197bc71e95f
+                    username: mytest
+                    password: >-
+                      $2b$10$qBYx19tNDs4hBZYJfwAMc.D.HaaeLaBbjg0ueXye0odN5SleSfjiS
+                    email: test@test.com
+                    birthday: "2017-02-09T00:00:00.000Z"
+                    favoriteMovies:
+                      - 6399b9f402e2cbd3f76be710
+                      - 6399b9f402e2cbd3f76be70e
+                    __v: 0
+                  - _id: 63df4ef0d355d197bc71e962
+                    username: mynewtest
+                    password: >-
+                      $2b$10$0IfUfa3OYdip45n64CjrFOgzz779jGOWy604OIYuDfa.aAueIzLBS
+                    email: test@44.com
+                    birthday: "2000-02-05T00:00:00.000Z"
+                    favoriteMovies: []
+                    __v: 0
+        "401":
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
     post:
       tags:
-        - Users
-      summary: Create new user.
-      operationId: createUser
-      security: []
+        - users
+      summary: Create new user
       requestBody:
-        description: The `user` object in json format.
-        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/user"
-
+              type: object
+              example:
+                username: test1234
+                password: topSERCRET123
+                email: user@example.com
+                birthday: "2023-02-24"
+                favoriteMovies:
+                  - 6399b9f402e2cbd3f76be70f
       responses:
         "201":
-          description: Successful operation
+          description: Created
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "288"
+            ETag:
+              schema:
+                type: string
+                example: W/"120-c1kO5MQUXlYDWC/IqZLAwq5H/sk"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:35:21 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userWithId"
-        "5XX":
-          description: Unexpected error.
-    get:
-      tags:
-        - Users
-      summary: Gets all users.
-      operationId: getAllUsers
-      responses:
-        "200":
-          description: Successful operation
+                type: object
+              example:
+                success: true
+                message: User registered successfully
+                data:
+                  username: test1234
+                  password: $2b$10$xbJfO3JqCvq9rizfbmUxJ.rIsPlwaFxW5n6xg9bjpSd4HIDx3tehy
+                  email: user@example.com
+                  birthday: "2023-02-24T00:00:00.000Z"
+                  favoriteMovies: []
+                  _id: 63f876c99eee68249175f588
+                  __v: 0
+        "400":
+          description: Bad Request
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "90"
+            ETag:
+              schema:
+                type: string
+                example: W/"5a-jQDgSIfLDCv7E1je5YcIewtQUQU"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:37:30 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/arrayOfUsers"
+                type: object
+              example:
+                errors:
+                  - msg: Email does not appear to be valid
+                    param: email
+                    location: body
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-
+          description: Unauthorized
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "48"
+            ETag:
+              schema:
+                type: string
+                example: W/"30-yG20A3n83TxJhh1acL3SLKx+0HA"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:36:35 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: User already exists
   /movies:
     get:
       tags:
-        - Movies
+        - movies
       summary: Gets all movies.
-      operationId: getAllMovies
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
       responses:
         "200":
-          description: Successful operation
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "10391"
+            Etag:
+              schema:
+                type: string
+                example: W/"2897-N0F1qfI7LcLBJoFCL8ck6hgN8qI"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:16:53 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/arrayOfMovies"
+                type: object
+              example:
+                success: true
+                message: All movies fetched successfully
+                data:
+                  - genre:
+                      name: Drama
+                      description: >-
+                        In film and television, drama is a category or director
+                        of narrative fiction intended to be more serious than
+                        humorous in tone.
+                    director:
+                      name: Sebastián Lelio
+                      bio: >-
+                        Sebastián Lelio Watt is a Chilean director,
+                        screenwriter, editor and producer. He received critical
+                        acclaim for directing the films Gloria and A Fantastic
+                        Woman, the latter of which won an Academy Award for Best
+                        Foreign Language Film.
+                      birthYear: "1974"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be712
+                    title: The Wonder
+                    description: >-
+                      Haunted by her past, a nurse travels from England to a
+                      remote Irish village in 1862 to investigate a young girl's
+                      supposedly miraculous fast.
+                    imagePath: >-
+                      https://artworks.thetvdb.com/banners/v4/movie/245161/posters/6355833b03dff.jpg
+                    featured: false
+                  - genre:
+                      name: Drama
+                      description: >-
+                        In film and television, drama is a category or director
+                        of narrative fiction intended to be more serious than
+                        humorous in tone.
+                    director:
+                      name: James Cameron
+                      bio: >-
+                        James Francis Cameron CC is a Canadian filmmaker. A
+                        major figure in the post-New Hollywood era, he is
+                        considered one of the industry''s most innovative
+                        filmmakers, regularly pushing the boundaries of
+                        cinematic capability with his use of novel technologies.
+                      birthYear: "1954"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be715
+                    title: Titanic
+                    description: >-
+                      101-year-old Rose DeWitt Bukater tells the story of her
+                      life aboard the Titanic, 84 years later. A young Rose
+                      boards the ship with her mother and fiancé. Meanwhile,
+                      Jack Dawson and Fabrizio De Rossi win third-class tickets
+                      aboard the ship. Rose tells the whole story from Titanic's
+                      departure through to its death—on its first and last
+                      voyage—on April 15, 1912.
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg
+                    featured: false
+                  - genre:
+                      name: Action
+                      description: >-
+                        Action film is a film director in which the protagonist
+                        is thrust into a series of events that typically involve
+                        violence and physical feats.
+                    director:
+                      name: Ryan Coogler
+                      bio: >-
+                        Ryan Kyle Coogler is an American film director, producer
+                        and screenwriter. He is a recipient of four NAACP Image
+                        Awards, four Black Reel Awards and an Academy Award
+                        nomination for Best Picture.
+                      birthYear: "1986"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be70e
+                    title: Black Panther
+                    description: >-
+                      King T'Challa returns home to the reclusive,
+                      technologically advanced African nation of Wakanda to
+                      serve as his country's new leader. However, T'Challa soon
+                      finds that he is challenged for the throne by factions
+                      within his own country as well as without. Using powers
+                      reserved to Wakandan kings, T'Challa assumes the Black
+                      Panther mantle to join with ex-girlfriend Nakia, the
+                      queen-mother, his princess-kid sister, members of the Dora
+                      Milaje (the Wakandan 'special forces') and an American
+                      secret agent, to prevent Wakanda from being dragged into a
+                      world war.
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/original/uxzzxijgPIY7slzFvMotPv8wjKA.jpg
+                    featured: true
+                  - genre:
+                      name: Action
+                      description: >-
+                        Action film is a film director in which the protagonist
+                        is thrust into a series of events that typically involve
+                        violence and physical feats.
+                    director:
+                      name: James Cameron
+                      bio: >-
+                        James Francis Cameron CC is a Canadian filmmaker. A
+                        major figure in the post-New Hollywood era, he is
+                        considered one of the industry''s most innovative
+                        filmmakers, regularly pushing the boundaries of
+                        cinematic capability with his use of novel technologies.
+                      birthYear: "1954"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be716
+                    title: The Terminator
+                    description: >-
+                      In the post-apocalyptic future, reigning tyrannical
+                      supercomputers teleport a cyborg assassin known as the
+                      'Terminator' back to 1984 to kill Sarah Connor, whose
+                      unborn son is destined to lead insurgents against 21st
+                      century mechanical hegemony. Meanwhile, the
+                      human-resistance movement dispatches a lone warrior to
+                      safeguard Sarah. Can he stop the virtually indestructible
+                      killing machine?'
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qvktm0BHcnmDpul4Hz01GIazWPr.jpg
+                    featured: false
+                  - genre:
+                      name: Drama
+                      description: >-
+                        In film and television, drama is a category or director
+                        of narrative fiction intended to be more serious than
+                        humorous in tone.
+                    director:
+                      name: Martin Scorsese
+                      bio: >-
+                        Martin Charles Scorsese is an American film director,
+                        producer, screenwriter and actor. Scorsese emerged as
+                        one of the major figures of the New Hollywood era.
+                      birthYear: "1964"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be711
+                    title: The Wolf of Wall Street
+                    description: >-
+                      A New York stockbroker refuses to cooperate in a large
+                      securities fraud case involving corruption on Wall Street,
+                      corporate banking world and mob infiltration. Based on
+                      Jordan Belfort's autobiography.
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/w220_and_h330_face/34m2tygAYBGqA9MXKhRDtzYd4MR.jpg
+                    featured: true
+                  - genre:
+                      name: Drama
+                      description: >-
+                        In film and television, drama is a category or director
+                        of narrative fiction intended to be more serious than
+                        humorous in tone.
+                    director:
+                      name: Martin Scorsese
+                      bio: >-
+                        Martin Charles Scorsese is an American film director,
+                        producer, screenwriter and actor. Scorsese emerged as
+                        one of the major figures of the New Hollywood era.
+                      birthYear: "1964"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be710
+                    title: The Irishman
+                    description: >-
+                      Pennsylvania, 1956. Frank Sheeran, a war veteran of Irish
+                      origin who works as a truck driver, accidentally meets
+                      mobster Russell Bufalino. Once Frank becomes his trusted
+                      man, Bufalino sends him to Chicago with the task of
+                      helping Jimmy Hoffa, a powerful union leader related to
+                      organized crime, with whom Frank will maintain a close
+                      friendship for nearly twenty years.
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/w220_and_h330_face/mbm8k3GFhXS0ROd9AD1gqYbIFbM.jpg
+                    featured: true
+                  - genre:
+                      name: Action
+                      description: >-
+                        Action film is a film director in which the protagonist
+                        is thrust into a series of events that typically involve
+                        violence and physical feats.
+                    director:
+                      name: Ryan Coogler
+                      bio: >-
+                        Ryan Kyle Coogler is an American film director, producer
+                        and screenwriter. He is a recipient of four NAACP Image
+                        Awards, four Black Reel Awards and an Academy Award
+                        nomination for Best Picture.
+                      birthYear: "1986"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be70f
+                    title: "Black Panther: Wakanda Forever"
+                    description: >-
+                      Queen Ramonda, Shuri, M’Baku, Okoye and the Dora Milaje
+                      fight to protect their nation from intervening world
+                      powers in the wake of King T’Challa’s death. As the
+                      Wakandans strive to embrace their next chapter, the heroes
+                      must band together with the help of War Dog Nakia and
+                      Everett Ross and forge a new path for the kingdom of
+                      Wakanda.
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/original/sv1xJUazXeYqALzczSZ3O6nkH75.jpg
+                    featured: true
+                  - genre:
+                      name: Action
+                      description: >-
+                        Action film is a film director in which the protagonist
+                        is thrust into a series of events that typically involve
+                        violence and physical feats.
+                    director:
+                      name: James Cameron
+                      bio: >-
+                        James Francis Cameron CC is a Canadian filmmaker. A
+                        major figure in the post-New Hollywood era, he is
+                        considered one of the industry''s most innovative
+                        filmmakers, regularly pushing the boundaries of
+                        cinematic capability with his use of novel technologies.
+                      birthYear: "1954"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be717
+                    title: Avatar
+                    description: >-
+                      In the 22nd century, a paraplegic Marine is dispatched to
+                      the moon Pandora on a unique mission, but becomes torn
+                      between following orders and protecting an alien
+                      civilization.
+                    imagePath: >-
+                      https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg
+                    featured: true
+                  - genre:
+                      name: Adventure
+                      description: >-
+                        Adventure fiction is a type of fiction that usually
+                        presents danger, or gives the reader a sense of
+                        excitement. Some adventure fiction also satisfies the
+                        literary definition of romance fiction.
+                    director:
+                      name: Adam Shankman
+                      bio: >-
+                        Adam Michael Shankman is an American film director,
+                        producer, writer, dancer, author, actor, and
+                        choreographer. He was a permanent judge on season 6–7 of
+                        the television program So You Think You Can Dance.
+                      birthYear: "1964"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be714
+                    title: Disenchanted
+                    description: >-
+                      It has been 15 years since Giselle and Robert wed, but
+                      Giselle has grown disillusioned with life in the city, so
+                      they move their growing family to the sleepy suburban
+                      community of Monroeville in search of a more fairy tale
+                      life. Unfortunately, it isn’t the quick fix she had hoped
+                      for. Suburbia has a whole new set of rules and a local
+                      queen bee, Malvina Monroe, who makes Giselle feel more out
+                      of place than ever. Frustrated that her happily ever after
+                      hasn’t been so easy to find, she turns to the magic of
+                      Andalasia for help, accidentally transforming the entire
+                      town into a real-life fairy tale and placing her family’s
+                      future happiness in jeopardy. Now, Giselle is in a race
+                      against time to reverse the spell and determine what
+                      happily ever after truly means to her and her family.
+                    imagePath: >-
+                      https://artworks.thetvdb.com/banners/v4/movie/36635/posters/631ccb33d104f.jpg
+                    featured: true
+                  - genre:
+                      name: Documentary
+                      description: >-
+                        A non-fiction motion picture intended to document
+                        reality primarily for the purposes of instruction,
+                        education, or maintaining a historical record. American
+                        film critic and filmmaker, Pare Lorentz, defines a
+                        documentary film as a factual film which is dramatic.
+                    director:
+                      name: Jonah Hill
+                      bio: >-
+                        Jonah Hill Feldstein is an American actor, comedian, and
+                        filmmaker. He is known for his comedic roles in films
+                        including Superbad, Knocked Up, 21 Jump Street, This Is
+                        the End, and 22 Jump Street.
+                      birthYear: "1983"
+                      deathYear: ""
+                    actors: []
+                    _id: 6399b9f402e2cbd3f76be713
+                    title: Stutz
+                    description: >-
+                      In candid conversations with actor Jonah Hill, leading
+                      psychiatrist Phil Stutz explores his early life
+                      experiences and unique, visual model of therapy.
+                    imagePath: >-
+                      https://artworks.thetvdb.com/banners/v4/movie/341151/posters/6372afe725189.jpg
+                    featured: false
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
   /movies/{title}:
     get:
       tags:
-        - Movies
+        - movies
       summary: Gets a movie by title.
-      operationId: getMovieByTitle
+      security:
+        - bearerAuth: []
       parameters:
-        - name: title
-          in: path
-          description: Movie title
-          required: true
+        - name: Accept
+          in: header
           schema:
             type: string
+          example: application/json
+        - name: title
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) Movie title
+          example: Avatar
       responses:
         "200":
-          description: Successful operation
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "951"
+            Etag:
+              schema:
+                type: string
+                example: W/"3b7-Mo75ogkkz8gVJPLe8jf5BN7GP8Y"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:17:24 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/movie"
+                type: object
+              example:
+                success: true
+                message: Movie fetched successfully
+                data:
+                  genre:
+                    name: Action
+                    description: >-
+                      Action film is a film director in which the protagonist is
+                      thrust into a series of events that typically involve
+                      violence and physical feats.
+                  director:
+                    name: James Cameron
+                    bio: >-
+                      James Francis Cameron CC is a Canadian filmmaker. A major
+                      figure in the post-New Hollywood era, he is considered one
+                      of the industry''s most innovative filmmakers, regularly
+                      pushing the boundaries of cinematic capability with his
+                      use of novel technologies.
+                    birthYear: "1954"
+                    deathYear: ""
+                  actors: []
+                  _id: 6399b9f402e2cbd3f76be717
+                  title: Avatar
+                  description: >-
+                    In the 22nd century, a paraplegic Marine is dispatched to
+                    the moon Pandora on a unique mission, but becomes torn
+                    between following orders and protecting an alien
+                    civilization.
+                  imagePath: >-
+                    https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg
+                  featured: true
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: No movie with that title
   /movies/genres/{genreName}:
     get:
       tags:
-        - Movies
+        - movies
       summary: Gets the genre by name.
-      operationId: getGenreByName
+      security:
+        - bearerAuth: []
       parameters:
-        - name: genreName
-          in: path
-          description: Genre name
-          required: true
+        - name: Accept
+          in: header
           schema:
             type: string
+          example: application/json
+        - name: genreName
+          in: path
+          schema:
+            type: string
+          required: true
+          description: (Required) Genre name
+          example: Action
       responses:
         "200":
-          description: Successful operation
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "238"
+            Etag:
+              schema:
+                type: string
+                example: W/"ee-65v8VllOu4cL5uFED9YJeKb23rE"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:19:09 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/genre"
+                type: object
+              example:
+                success: true
+                message: Genre fetched successfully
+                data:
+                  name: Action
+                  description: >-
+                    Action film is a film director in which the protagonist is
+                    thrust into a series of events that typically involve
+                    violence and physical feats.
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: No genre with that name
   /movies/directors/{directorName}:
     get:
       tags:
-        - Movies
+        - movies
       summary: Gets the director by name.
-      operationId: getDirectorByName
+      security:
+        - bearerAuth: []
       parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
         - name: directorName
           in: path
-          description: Director name
-          required: true
           schema:
             type: string
+          required: true
+          description: (Required) Director name
+          example: James Cameron
       responses:
         "200":
-          description: Successful operation
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "389"
+            Etag:
+              schema:
+                type: string
+                example: W/"185-LLRP8augB1EhaH5+yjQzvvwxBgU"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 09:20:20 GMT
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/director"
+                type: object
+              example:
+                success: true
+                message: Director fetched successfully
+                data:
+                  name: James Cameron
+                  bio: >-
+                    James Francis Cameron CC is a Canadian filmmaker. A major
+                    figure in the post-New Hollywood era, he is considered one
+                    of the industry''s most innovative filmmakers, regularly
+                    pushing the boundaries of cinematic capability with his use
+                    of novel technologies.
+                  birthYear: "1954"
+                  deathYear: ""
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-
-  /users/{username}:
-    get:
-      tags:
-        - Users
-      summary: Gets a user by username.
-      operationId: getUserByUsername
-      parameters:
-        - name: username
-          in: path
-          description: User username
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successful operation
+          description: Unauthorized
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Cowboy
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Date:
+              schema:
+                type: string
+                example: Fri, 24 Feb 2023 08:53:31 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "12"
+            Via:
+              schema:
+                type: string
+                example: 1.1 vegur
           content:
+            text/plain:
+              schema:
+                type: string
+              example: Unauthorized
             application/json:
               schema:
-                $ref: "#/components/schemas/userWithId"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-    put:
-      tags:
-        - Users
-      summary: Update user's details.
-      operationId: UpdateUser
-      parameters:
-        - name: username
-          in: path
-          description: User username
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The `user` object in json format.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/user"
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/userWithId"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-    delete:
-      tags:
-        - Users
-      summary: Delete user.
-      operationId: DeleteUser
-      parameters:
-        - name: username
-          in: path
-          description: User username
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: A user with the specified ID was deleted.
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "404":
-          description: A user with the specified ID was not found.
-        "5XX":
-          description: Unexpected error.
-
-  /users/{username}/movies/{movieId}:
+                type: object
+              example:
+                success: true
+                message: No director with that name
+  /login:
     post:
       tags:
-        - Users
-      summary: Add movie to user's favorite movies.
-      operationId: AddUserFavoriteMovie
-      parameters:
-        - name: username
-          in: path
-          description: User username
-          required: true
-          schema:
-            type: string
-        - name: movieId
-          in: path
-          description: Movie ID
-          required: true
-          schema:
-            type: number
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/userWithId"
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-    delete:
-      tags:
-        - Users
-      summary: Delete movie from user's favorite movies.
-      operationId: DeleteUserFavoriteMovie
-      parameters:
-        - name: username
-          in: path
-          description: User username
-          required: true
-          schema:
-            type: string
-        - name: movieId
-          in: path
-          description: Movie ID
-          required: true
-          schema:
-            type: number
+        - login
+      summary: Get bearer token as logging in with username and password.
+      description: >
+        Once the respose is received with the JWT it shall be used with each
+        request (in the authorization header) as a bearer token in order to be
+        authenticated for API calls.
       requestBody:
-        description: The `user` object in json format.
-        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/user"
+              type: object
+              example:
+                username: test1234
+                password: topSERCRET123
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
       responses:
         "200":
-          description: Successful operation
+          description: OK
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "461"
+            ETag:
+              schema:
+                type: string
+                example: W/"1cd-LRsgSE6nkfBbI0F620bsqT5rpMQ"
+            Date:
+              schema:
+                type: string
+                example: Thu, 23 Feb 2023 16:59:01 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                type: object
+              example:
+                success: true
+                message: User logged in successsfully
+                data:
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Y2MWE4YjIyMjA5NTE2OGZjYmZiMDIiLCJ1c2VybmFtZSI6InRlc3Q0NSIsInBhc3N3b3JkIjoiJDJiJDEwJDE0QmFPQ1pTLkZQSWpubVFWRVpJRnVobjlTTU1ENElpTDRzTi9ETVkvN001Y1hsRkNBVC5xIiwiZW1haWwiOiJ0ZXN0MUBiYi5jYyIsImZhdm9yaXRlTW92aWVzIjpbXSwiX192IjowLCJpYXQiOjE2NzcxNzE1NDEsImV4cCI6MTY3Nzc3NjM0MSwic3ViIjoidGVzdDQ1In0.61TXTs5T1mlUGrvNuoHehA2dh4zizEu65a96zXtfsrQ
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "5XX":
-          description: Unexpected error.
-
-components:
-  schemas:
-    login:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indicating whether the communication was successful with the server.
-          example: true
-        message:
-          type: string
-          description: Informational message from the server.
-          example: "User logged in successsfuly"
-        data:
-          type: object
-          properties:
-            token:
-              type: string
-              description: The JWT token of the user
-
-    movie:
-      type: object
-      properties:
-        _id:
-          type: string
-          description: Automatically assigned ID of the movie
-          example: 6399b9f402e2cbd3f76be70f
-        title:
-          type: string
-          description: The title of the movie
-        description:
-          type: string
-          description: The description of the movie
-        genre:
-          type: object
-          description: The genre of the movie
-          $ref: "#/components/schemas/genre"
-        director:
-          type: object
-          description: The director of the movie
-          $ref: "#/components/schemas/director"
-        imageURL:
-          type: string
-          format: uri
-          description: The image URL of the movie
-        featured:
-          type: boolean
-          description: Whether the movie is featured or not
-        actors:
-          type: array
-          description: Actor's object IDs
-          items:
-            type: string
-            format: id
-            example: 6399b9f402e2cbd3f76be70f
-      required:
-        - title
-        - description
-
-    arrayOfMovies:
-      type: array
-      description: List of all movies
-      items:
-        $ref: "#/components/schemas/movie"
-
-    user:
-      type: object
-      properties:
-        username:
-          type: string
-          format: username
-          description: The username of the user
-          example: karcsika
-        password:
-          type: string
-          description: The password of the user
-          example: élssjéljfáajfá74
-        email:
-          type: string
-          format: email
-          description: The email of the user
-        birthday:
-          type: string
-          format: date
-          description: The birthday of the user
-        favoriteMovies:
-          type: array
-          description: Movie object IDs
-          items:
-            type: string
-            format: id
-            example: 6399b9f402e2cbd3f76be70f
-      required:
-        - username
-        - password
-        - email
-
-    userWithId:
-      allOf:
-        - type: object
-          properties:
-            _id:
-              type: string
-              description: Automatically assigned user ID
-              format: id
-              example: 6399b9f402e2cbd3f76be70f
-        - $ref: "#/components/schemas/user"
-
-    userWithToken:
-      allOf:
-        - $ref: "#/components/schemas/userWithId"
-        - type: object
-          properties:
-            token:
-              type: string
-              description: Automatically assigned JWT token
-              format: token
-              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2ExYjZiYTYzOTNkZTc3NWFmY2I5OGQiLCJ1c2VybmFtZSI6ImNzb2NzbyIsInBhc3N3b3JkIjoiJDJiJDEwJE05dXpleDlnMk1zemFnYWFoV01oS3ViYUJsZmtDRWN0dEFQUXlOcHNIWVRUWDVHVWp2UmFHIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiYmlydGhkYXkiOiIyMDIyLTEyLTE0VDAwOjAwOjAwLjAwMFoiLCJmYXZvcml0ZU1vdmllcyI6W10sIl9fdiI6MCwiaWF0IjoxNjcxNTQyNjgyLCJleHAiOjE2NzIxNDc0ODIsInN1YiI6ImNzb2NzbyJ9.wZiHnuEWHUMZT1lDg7gdBY_BjQHLJ9YeMFIS5pSv71E
-
-    arrayOfUsers:
-      type: array
-      description: List of all users
-      items:
-        $ref: "#/components/schemas/userWithId"
-
-    genre:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the genre
-        description:
-          type: string
-          description: The description of the genre
-
-    director:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the director
-        bio:
-          type: string
-          description: The bio of the director
-        birthYear:
-          type: string
-          format: date
-          description: The birth year of the director
-        deathYear:
-          type: string
-          format: date
-          description: The death year of the director
-
-  securitySchemes:
-    bearerAuth: # arbitrary name for the security scheme
-      type: http
-      scheme: bearer
-      bearerFormat: JWT # optional, arbitrary value for documentation purposes
-
-    basicAuth: # <-- arbitrary name for the security scheme
-      type: http
-      scheme: basic
-
-  responses:
-    UnauthorizedError:
-      description: Authentication information is missing or invalid
-      headers:
-        WWW_Authenticate:
-          schema:
-            type: string
-
-security:
-  - bearerAuth: []
+          description: Unauthorized
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "55"
+            ETag:
+              schema:
+                type: string
+                example: W/"37-6/7Xj23Ml+sBiQUvge3RWiEEwL0"
+            Date:
+              schema:
+                type: string
+                example: Thu, 23 Feb 2023 17:00:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: No such user
+                  value:
+                    success: true
+                    message: No user with that username
+                example-1:
+                  summary: Failed login
+                  value:
+                    success: false
+                    message: Error login User

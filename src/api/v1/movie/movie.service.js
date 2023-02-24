@@ -21,7 +21,7 @@ const getGenreByName = async ({ genreName }) => {
     "genre.name": genreName,
   });
 
-  const finalResult = foundMovie.genre;
+  const finalResult = foundMovie;
 
   return finalResult;
 };
@@ -31,7 +31,7 @@ const getDirectorByName = async ({ directorName }) => {
     "director.name": directorName,
   });
 
-  const finalResult = foundMovie.director;
+  const finalResult = foundMovie;
 
   return finalResult;
 };

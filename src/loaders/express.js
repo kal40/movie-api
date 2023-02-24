@@ -1,5 +1,5 @@
-import { initMiddlewares } from "../middlewares/middleware.js";
-import installApiEndpoints from "../api/routes/routes.js";
+import { initMiddlewares } from "../middlewares/index.js";
+import installApiEndpoints from "../api/routes/index.js";
 // import { initializeErrorHandling } from "./error";
 
 export default (app) => {

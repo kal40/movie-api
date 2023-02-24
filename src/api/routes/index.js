@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import usersRoutes from "../v1/user/user.route.js";
-import moviesRoutes from "../v1/movie/movie.route.js";
+import usersRoutes from "../v1/user/index.js";
+import moviesRoutes from "../v1/movie/index.js";
 
 const apiRouter = Router();
 

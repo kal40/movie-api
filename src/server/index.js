@@ -1,6 +1,6 @@
 import express from "express";
 
-import { appInitLoader } from "../loaders/loader.js";
+import { appInitLoader } from "../loaders/index.js";
 import config from "../config/config.js";
 import logger from "../utilities/logger.js";
 

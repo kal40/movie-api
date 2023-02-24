@@ -59,7 +59,3 @@ The endpoints can be tested directly from the [documentation](https://myflixapi.
 ## Dependencies
 
 See [`package.json`](https://raw.githubusercontent.com/kal40/movie-api/master/package.json)
-
-## Known Issues
-
-- at some endpoints the documentation needs to be updated to show the correct responses

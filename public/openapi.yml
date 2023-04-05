@@ -17,11 +17,137 @@ security:
   - bearerAuth: []
 tags:
   - name: users
+  - name: users > login
   - name: users > {username}
   - name: users > {username} > movies/{movieId}
   - name: movies
-  - name: login
 paths:
+  /users/login:
+    post:
+      tags:
+        - users > login
+      summary: Get bearer token as logging in with username and password.
+      description: >
+        Once the respose is received with the JWT it shall be used with each
+        request (in the authorization header) as a bearer token in order to be
+        authenticated for API calls.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: test1234
+                password: topSERCRET123
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "461"
+            ETag:
+              schema:
+                type: string
+                example: W/"1cd-LRsgSE6nkfBbI0F620bsqT5rpMQ"
+            Date:
+              schema:
+                type: string
+                example: Thu, 23 Feb 2023 16:59:01 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: User logged in successsfully
+                data:
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Y2MWE4YjIyMjA5NTE2OGZjYmZiMDIiLCJ1c2VybmFtZSI6InRlc3Q0NSIsInBhc3N3b3JkIjoiJDJiJDEwJDE0QmFPQ1pTLkZQSWpubVFWRVpJRnVobjlTTU1ENElpTDRzTi9ETVkvN001Y1hsRkNBVC5xIiwiZW1haWwiOiJ0ZXN0MUBiYi5jYyIsImZhdm9yaXRlTW92aWVzIjpbXSwiX192IjowLCJpYXQiOjE2NzcxNzE1NDEsImV4cCI6MTY3Nzc3NjM0MSwic3ViIjoidGVzdDQ1In0.61TXTs5T1mlUGrvNuoHehA2dh4zizEu65a96zXtfsrQ
+        "401":
+          description: Unauthorized
+          headers:
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "55"
+            ETag:
+              schema:
+                type: string
+                example: W/"37-6/7Xj23Ml+sBiQUvge3RWiEEwL0"
+            Date:
+              schema:
+                type: string
+                example: Thu, 23 Feb 2023 17:00:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: No such user
+                  value:
+                    success: true
+                    message: No user with that username
+                example-1:
+                  summary: Failed login
+                  value:
+                    success: false
+                    message: Error login User
   /users/{username}/movies/{movieId}:
     post:
       tags:
@@ -1625,129 +1751,3 @@ paths:
               example:
                 success: true
                 message: No director with that name
-  /login:
-    post:
-      tags:
-        - login
-      summary: Get bearer token as logging in with username and password.
-      description: >
-        Once the respose is received with the JWT it shall be used with each
-        request (in the authorization header) as a bearer token in order to be
-        authenticated for API calls.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                username: test1234
-                password: topSERCRET123
-      security:
-        - noauthAuth: []
-      parameters:
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json
-        - name: Accept
-          in: header
-          schema:
-            type: string
-          example: application/json
-      responses:
-        "200":
-          description: OK
-          headers:
-            Vary:
-              schema:
-                type: string
-                example: Origin
-            Access-Control-Allow-Credentials:
-              schema:
-                type: boolean
-                example: "true"
-            Content-Type:
-              schema:
-                type: string
-                example: application/json; charset=utf-8
-            Content-Length:
-              schema:
-                type: integer
-                example: "461"
-            ETag:
-              schema:
-                type: string
-                example: W/"1cd-LRsgSE6nkfBbI0F620bsqT5rpMQ"
-            Date:
-              schema:
-                type: string
-                example: Thu, 23 Feb 2023 16:59:01 GMT
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Keep-Alive:
-              schema:
-                type: string
-                example: timeout=5
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                success: true
-                message: User logged in successsfully
-                data:
-                  token: >-
-                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Y2MWE4YjIyMjA5NTE2OGZjYmZiMDIiLCJ1c2VybmFtZSI6InRlc3Q0NSIsInBhc3N3b3JkIjoiJDJiJDEwJDE0QmFPQ1pTLkZQSWpubVFWRVpJRnVobjlTTU1ENElpTDRzTi9ETVkvN001Y1hsRkNBVC5xIiwiZW1haWwiOiJ0ZXN0MUBiYi5jYyIsImZhdm9yaXRlTW92aWVzIjpbXSwiX192IjowLCJpYXQiOjE2NzcxNzE1NDEsImV4cCI6MTY3Nzc3NjM0MSwic3ViIjoidGVzdDQ1In0.61TXTs5T1mlUGrvNuoHehA2dh4zizEu65a96zXtfsrQ
-        "401":
-          description: Unauthorized
-          headers:
-            Vary:
-              schema:
-                type: string
-                example: Origin
-            Access-Control-Allow-Credentials:
-              schema:
-                type: boolean
-                example: "true"
-            Content-Type:
-              schema:
-                type: string
-                example: application/json; charset=utf-8
-            Content-Length:
-              schema:
-                type: integer
-                example: "55"
-            ETag:
-              schema:
-                type: string
-                example: W/"37-6/7Xj23Ml+sBiQUvge3RWiEEwL0"
-            Date:
-              schema:
-                type: string
-                example: Thu, 23 Feb 2023 17:00:28 GMT
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Keep-Alive:
-              schema:
-                type: string
-                example: timeout=5
-          content:
-            application/json:
-              schema:
-                type: object
-              examples:
-                example-0:
-                  summary: No such user
-                  value:
-                    success: true
-                    message: No user with that username
-                example-1:
-                  summary: Failed login
-                  value:
-                    success: false
-                    message: Error login User

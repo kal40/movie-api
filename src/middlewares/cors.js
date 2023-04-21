@@ -4,6 +4,7 @@ import cors from "cors";
 
 const ALLOWED_ORIGINS = [
   "https://myflix.smartcoder.dev",
+  "https://myflixang.smartcoder.dev",
   "https://myflixapi.smartcoder.dev",
   "http://localhost:3000",
   "http://localhost:1234",

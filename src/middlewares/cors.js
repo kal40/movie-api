@@ -25,6 +25,7 @@ export const initCors = (app) => {
         }
         return callback(null, true);
       },
+      exposedHeaders: ["Authorization"],
     })
   );
 };

@@ -2,6 +2,19 @@ import httpStatus from "http-status";
 
 import MovieService from "./movie.service.js";
 
+/**
+ * @typedef {Object} Response
+ * @property {boolean} success - whether the request was successful
+ * @property {string} message - response message
+ * @property {Object} data - response data
+ */
+
+/**
+ * get all movies from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
+
 const getAllMovies = async (req, res) => {
   try {
     const response = await MovieService.getAllMovies();
@@ -17,6 +30,12 @@ const getAllMovies = async (req, res) => {
     });
   }
 };
+
+/**
+ * get movie by title from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
 
 const getMovieByTitle = async (req, res) => {
   const inputData = req.params;
@@ -41,6 +60,12 @@ const getMovieByTitle = async (req, res) => {
   }
 };
 
+/**
+ * get genre by name from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
+
 const getGenreByName = async (req, res) => {
   const inputData = req.params;
 
@@ -64,6 +89,12 @@ const getGenreByName = async (req, res) => {
     });
   }
 };
+
+/**
+ * get director by name from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
 
 const getDirectorByName = async (req, res) => {
   const inputData = req.params;

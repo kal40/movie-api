@@ -2,6 +2,19 @@ import httpStatus from "http-status";
 
 import UserService from "./user.service.js";
 
+/**
+ * @typedef {Object} Response
+ * @property {boolean} success - whether the request was successful
+ * @property {string} message - response message
+ * @property {Object} data - response data
+ */
+
+/**
+ * create user in the database
+ * @async
+ * @returns {Response} returns a response object
+ */
+
 const createUser = async (req, res) => {
   const inputData = req.body;
   try {
@@ -24,6 +37,12 @@ const createUser = async (req, res) => {
       .json({ success: false, message: "Error Creating User", Error: error });
   }
 };
+
+/**
+ * create JWT token for user
+ * @async
+ * @returns {Response} returns a response object
+ */
 
 const loginUser = async (req, res) => {
   const inputData = req.body;
@@ -49,6 +68,12 @@ const loginUser = async (req, res) => {
   }
 };
 
+/**
+ * get all users from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
+
 const getAllUsers = async (req, res) => {
   try {
     const response = await UserService.getAllUsers();
@@ -64,6 +89,12 @@ const getAllUsers = async (req, res) => {
     });
   }
 };
+
+/**
+ * get user by username from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
 
 const getUserByUsername = async (req, res) => {
   const inputData = req.params;
@@ -87,6 +118,12 @@ const getUserByUsername = async (req, res) => {
     });
   }
 };
+
+/**
+ * update user details in the database
+ * @async
+ * @returns {Response} returns a response object
+ */
 
 const updateUserDetails = async (req, res) => {
   const inputData = req.body;
@@ -112,6 +149,12 @@ const updateUserDetails = async (req, res) => {
   }
 };
 
+/**
+ * delete user from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
+
 const deleteUser = async (req, res) => {
   const inputData = req.params;
   try {
@@ -135,6 +178,12 @@ const deleteUser = async (req, res) => {
   }
 };
 
+/**
+ * add user favorite movie to the database
+ * @async
+ * @returns {Response} returns a response object
+ */
+
 const addUserFavoriteMovie = async (req, res) => {
   const inputData = req.params;
   try {
@@ -157,6 +206,12 @@ const addUserFavoriteMovie = async (req, res) => {
     });
   }
 };
+
+/**
+ * delete user favorite movie from the database
+ * @async
+ * @returns {Response} returns a response object
+ */
 
 const deleteUserFavoriteMovie = async (req, res) => {
   const inputData = req.params;

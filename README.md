@@ -12,6 +12,13 @@ This site was built using [Heroku GitHub Deploys](https://devcenter.heroku.com/a
 
 [LIVE DEMO](https://myflixapi.smartcoder.dev/)
 
+## Key Features
+
+- Express library for endpoint routing
+- Uses MongoDB noSQL database deployed on MongoDB Atlas
+- Basic HTTP auth for first login then JWT (token-based) authentication for further API calls.
+- User's password hashing
+
 ## Getting started
 
 ### Prerequisites
@@ -48,13 +55,6 @@ npm run dev
 ### Testing
 
 The endpoints can be tested directly from the [documentation](https://myflixapi.smartcoder.dev) or the openapi definitions can be imported to Postman from [this link](https://myflixapi.smartcoder.dev/openapi.yml)
-
-## Key Features
-
-- Express library for endpoint routing
-- Uses MongoDB noSQL database deployed on MongoDB Atlas
-- Basic HTTP auth for first login then JWT (token-based) authentication for further API calls.
-- User's password hashing
 
 ## Dependencies
 

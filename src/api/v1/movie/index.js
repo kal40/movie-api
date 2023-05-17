@@ -18,4 +18,16 @@ movieRouter
   .route("/directors/:directorName")
   .get(authorizeJWT, MovieController.getDirectorByName);
 
+movieRouter
+  .route("/:title/userimages/:username")
+  .get(MovieController.getMovieUserImageList);
+
+movieRouter
+  .route("/:title/userimages/:username/:filename")
+  .get(MovieController.getMovieUserImage);
+
+movieRouter
+  .route("/:title/userimages/:username/:filename")
+  .post(MovieController.addMovieUserImages);
+
 export default movieRouter;

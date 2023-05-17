@@ -6,6 +6,7 @@ const config = {
   jwtExpirationInterval: process.env.JWT_EXPIRATION_MINUTES,
   algorithms: "HS256",
   mongodbConnectionUri: process.env.CONNECTION_URI,
+  imagesBucket: process.env.IMAGES_BUCKET,
 };
 
 export default config;

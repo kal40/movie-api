@@ -7,8 +7,10 @@ const ALLOWED_ORIGINS = [
   "https://myflixang.smartcoder.dev",
   "https://myflixapi.smartcoder.dev",
   "http://localhost:3000",
+  "http://127.0.0.1:3001",
   "http://localhost:1234",
   "http://localhost:4200",
+  "http://cf-ex-2-4-s3-file-upload.s3-website.eu-central-1.amazonaws.com/"
 ];
 
 export const initCors = (app) => {

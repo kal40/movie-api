@@ -19,15 +19,15 @@ movieRouter
   .get(authorizeJWT, MovieController.getDirectorByName);
 
 movieRouter
-  .route("/:title/userimages/:username")
-  .get(MovieController.getMovieUserImageList);
+  .route("/:movieId/userimages/:userId")
+  .get(authorizeJWT, MovieController.getMovieUserImageList);
 
 movieRouter
-  .route("/:title/userimages/:username/:filename")
-  .get(MovieController.getMovieUserImage);
+  .route("/userimages/:objectKey")
+  .get(authorizeJWT, MovieController.getMovieUserImage);
 
 movieRouter
-  .route("/:title/userimages/:username/:filename")
-  .post(MovieController.addMovieUserImages);
+  .route("/:movieId/userimages/:userId")
+  .post(authorizeJWT, MovieController.addMovieUserImages);
 
 export default movieRouter;

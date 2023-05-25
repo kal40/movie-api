@@ -58,7 +58,7 @@ const getDirectorByName = async ({ directorName }) => {
 const getMovieUserImageList = async ({ movieId, userId}) => {
   const command = new ListObjectsV2Command({
     Bucket: config.imagesBucket,
-    Prefix: `users/${userId}/${movieId}/`,
+    Prefix: `users/resized-images/${userId}/${movieId}/`,
   });
 
   const response = await s3Client.send(command)
@@ -82,7 +82,7 @@ const addMovieUserImages = async ({ movieId, userId }, fileContent, fileName) =>
 
   const command = new PutObjectCommand({
     "Bucket": config.imagesBucket,
-    "Key": `users/${userId}/${movieId}/original-images/${fileName}`,
+    "Key": `users/original-images/${userId}/${movieId}/${fileName}`,
     "Body": fileContent,
   })
 
